@@ -1,3 +1,19 @@
+/*
+    Dark: #131C2D
+    Light: #9CAEBC
+    Gold: #E7D51D, #E2BF31
+*/
+
+.th-bg-darkblue {
+    background-color: rgba(19, 27, 38, .7);
+}
+.th-light {
+    color: #C5D0D6;
+}
+.th-gold {
+    color: #E2BF31;
+}
+
 html {
   font-size: 14px;
 }
