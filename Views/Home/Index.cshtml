@@ -2,14 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="row">
-
-    <div class="col-md-4">
-        <h1>Welcome</h1>
-        <p>All Games is a place to talk about which video games you love and hate, and why!</p>
-    </div>
-    <div class="col-md-8 mx-0 p-0 float-end">
-        <img src="~/Images/dragon.png" alt="photography" class="img-fluid float-right mt-0 img-fluid rounded-3  " style="width:100%;" />
+<div class="d-flex justify-content-center align-items-center text-center" style="min-height: 100vh;">
+    <div class="transparent-bg rounded-15 p-3 mx-0" style="width: 80%;">
+        <form class="d-flex align-items-center">
+            <h4 class="col-sm-3 mx-0 text-center me-2">Search Game Reviews </h4>
+            <div class="input-group">
+                <input type="search" class="form-control" placeholder="Search for reviews...">
+                <div class="input-group-append">
+                    <span class="input-group-text">
+                        <i class="fa fa-search p-2 "></i> 
+                    </span>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
