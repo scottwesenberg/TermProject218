@@ -1,12 +1,14 @@
-﻿using Humanizer.Localisation;
+﻿#nullable disable
+using Humanizer.Localisation;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace TermProject1.Models
 {
     public class Game
     {
-        public int GameId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter a game name.")]
         public string? Name { get; set; }
@@ -20,13 +22,16 @@ namespace TermProject1.Models
         [Required(ErrorMessage = "Please enter a rating.")]
         [Display(Name = "IGN Rating")]
         [Range(1, 10, ErrorMessage = "Rating must be between 1 and 10.")]
-        public int? IGNRating { get; set; }
-
+        public float? IGNRating { get; set; }
+        [Required(ErrorMessage = "Please enter a game description.")]
+        [StringLength(3000)]
+        public string? Description { get; set; }
         public string Slug =>
             Name?.Replace(' ', '-').ToLower() + '-' + Year?.ToString();
 
 
+        [Required(ErrorMessage = "Please select at least 1 Category")]
+        public List<Category> GameCategories { get; set; } = new List<Category>();
 
-        
     }
 }

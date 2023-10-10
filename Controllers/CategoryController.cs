@@ -9,87 +9,87 @@ using TermProject1.Models;
 
 namespace TermProject1.Controllers
 {
-    public class GameController : Controller
+    public class CategoryController : Controller
     {
         private readonly GameContext _context;
 
-        public GameController(GameContext context)
+        public CategoryController(GameContext context)
         {
             _context = context;
         }
 
-        // GET: Game
+        // GET: Category
         public async Task<IActionResult> Index()
         {
-              return _context.Games != null ? 
-                          View(await _context.Games.ToListAsync()) :
-                          Problem("Entity set 'GameContext.Games'  is null.");
+              return _context.Categories != null ? 
+                          View(await _context.Categories.ToListAsync()) :
+                          Problem("Entity set 'GameContext.Categories'  is null.");
         }
 
-        // GET: Game/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Category/Details/5
+        public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.Games == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (game == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(game);
+            return View(category);
         }
 
-        // GET: Game/Create
+        // GET: Category/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Game/Create
+        // POST: Category/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GameId,Name,Creator,Year,IGNRating")] Game game)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(game);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+            return View(category);
         }
 
-        // GET: Game/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Category/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.Games == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games.FindAsync(id);
-            if (game == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(game);
+            return View(category);
         }
 
-        // POST: Game/Edit/5
+        // POST: Category/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GameId,Name,Creator,Year,IGNRating")] Game game)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name")] Category category)
         {
-            if (id != game.Id)
+            if (id != category.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace TermProject1.Controllers
             {
                 try
                 {
-                    _context.Update(game);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GameExists(game.Id))
+                    if (!CategoryExists(category.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +114,49 @@ namespace TermProject1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+            return View(category);
         }
 
-        // GET: Game/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Category/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.Games == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (game == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(game);
+            return View(category);
         }
 
-        // POST: Game/Delete/5
+        // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.Games == null)
+            if (_context.Categories == null)
             {
-                return Problem("Entity set 'GameContext.Games'  is null.");
+                return Problem("Entity set 'GameContext.Categories'  is null.");
             }
-            var game = await _context.Games.FindAsync(id);
-            if (game != null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category != null)
             {
-                _context.Games.Remove(game);
+                _context.Categories.Remove(category);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GameExists(int id)
+        private bool CategoryExists(string id)
         {
-          return (_context.Games?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

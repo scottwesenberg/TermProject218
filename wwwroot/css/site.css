@@ -5,6 +5,9 @@
 */
 
 .th-bg-darkblue {
+    background-color: rgba(19, 27, 38, .85);
+}
+.th-bg-darkbluemenu {
     background-color: rgba(19, 27, 38, .7);
 }
 .th-light {
