@@ -13,6 +13,7 @@ namespace TermProject1.Controllers
     {
         private readonly GameContext _context;
 
+
         public CategoryController(GameContext context)
         {
             _context = context;
@@ -47,6 +48,7 @@ namespace TermProject1.Controllers
         // GET: Category/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -158,5 +160,16 @@ namespace TermProject1.Controllers
         {
           return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        //public IActionResult GetCategories()
+        //{
+        //    var categories = GameContext.GetCategories(); // Replace with your actual data retrieval method
+        //    var viewModel = new GameViewModel
+        //    {
+        //        Categories = categories,
+        //        GameCategories = new List<string>() // Initialize with selected game categories if needed
+        //    };
+
+        //    return View(viewModel);
+        //}
     }
 }

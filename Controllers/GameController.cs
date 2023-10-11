@@ -47,6 +47,11 @@ namespace TermProject1.Controllers
         // GET: Game/Create
         public IActionResult Create()
         {
+            var categories = _context.Categories.ToList();
+            var categorySelectList = new SelectList(categories, "Id", "Name");
+
+            ViewBag.CategoryList = categorySelectList;
+
             return View();
         }
 

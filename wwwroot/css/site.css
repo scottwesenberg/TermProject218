@@ -1,6 +1,6 @@
 /*
     Dark: #131C2D
-    Light: #9CAEBC
+    Light: #9CAEBC, rgb(190, 213, 255)
     Gold: #E7D51D, #E2BF31
 */
 
@@ -12,11 +12,41 @@
 }
 .th-light {
     color: #C5D0D6;
+    color:;
 }
 .th-gold {
     color: #E2BF31;
 }
+.th-btn {
+    width: 180px;
+    height: 40px ;
+    background-color: #E2BF31;
+    color: #131C2D;
+    border: 2px solid #E2BF31;
 
+}
+.th-btn-other {
+    width: 150px;
+    height: 40px;
+    background-color: #131C2D;
+    color: #E2BF31;
+    border: 2px solid #E2BF31;
+
+    text-decoration: none;
+}
+.th-btn-index{
+
+}
+
+
+.th-btn-other>a:visited, .th-btn-other>a:hover{
+    text-decoration:none;
+}
+.th-btn:hover, .th-btn-other:hover {
+    
+    font-size: 1.2em;
+    text-decoration: none;
+}
 html {
   font-size: 14px;
 }

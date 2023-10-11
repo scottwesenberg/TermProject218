@@ -5,12 +5,13 @@
 }
 <div class=" d-flex justify-content-center align-items-center" style="min-height: 60vh;">
     <div class="th-bg-darkblue rounded-2 p-3 " style="width: 100%;">
-        <h1 class="p-2 text-center">Games</h1>
-
-        <p class="text-center">
-            <a asp-action="Create" class="btn btn-light p-1">Add New Game</a>
-        </p>
-        <table class="table text-white">
+        <h1 class="p-2 text-center th-light">Games</h1>
+        <div class=" text-end pe-5">
+        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Create'">
+            Add New Game
+        </button>
+        </div>
+        <table class="table th-light">
             <thead>
                 <tr>
                     <th>
@@ -25,6 +26,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.IGNRating)
                     </th>
+ 
                     <th></th>
                 </tr>
             </thead>
@@ -44,10 +46,13 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.IGNRating)
                         </td>
+
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class=" btn btn-light p-1">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class=" btn btn-light p-1">Details</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class=" btn btn-light p-1">Delete</a>
+                            
+                            <button class="th-btn rounded-2 p-1" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
+                                View Game
+                            </button>
+                            
                         </td>
                     </tr>
                 }
