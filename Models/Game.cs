@@ -24,8 +24,8 @@ namespace TermProject1.Models
         [Range(1, 10, ErrorMessage = "Rating must be between 1 and 10.")]
         public float? IGNRating { get; set; }
         [Required(ErrorMessage = "Please enter a game description.")]
-        [StringLength(3000)]
-        public string? Description { get; set; }
+        [StringLength(maximumLength:3000)]
+        public string Description { get; set; }
         public string Slug =>
             Name?.Replace(' ', '-').ToLower() + '-' + Year?.ToString();
 

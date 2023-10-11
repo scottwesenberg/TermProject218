@@ -44,14 +44,14 @@
         </dd>
     </dl>
 
-    <div>
+    <div class="">
         <button class="th-btn rounded-2 p-1" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.Id })';">
             Edit
         </button>
         <button class="th-btn rounded-2 p-1" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.Id })';">
             Delete
         </button>
-        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Index'">
+        <button type="button" class="th-btn-other text-center rounded-3 p-1 " onclick="window.location.href= '/Game/Index'">
             Back to List
         </button>
     </div>

@@ -60,7 +60,7 @@ namespace TermProject1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GameId,Name,Creator,Year,IGNRating")] Game game)
+        public async Task<IActionResult> Create([Bind("GameId,Name,Creator,Year,IGNRating,List<Category> GameCategories,Description")] Game game)
         {
             if (ModelState.IsValid)
             {

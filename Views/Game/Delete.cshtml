@@ -42,8 +42,10 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger p-1" /> 
-        <a asp-action="Index" class=" btn btn-light p-1">Back to List</a>
+        <input type="submit" value="Delete" class="th-btn rounded-3 p-1" />
+        <button type="button" class="th-btn-other text-center rounded-3 p-1 " onclick="window.location.href= '/Game/Index'">
+            Back to List
+        </button>
     </form>
     </div>
 </div>
