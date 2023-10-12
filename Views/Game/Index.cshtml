@@ -10,13 +10,16 @@
         <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Create'">
             Add New Game
         </button>
-        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Create'">
+        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Category/Create'">
             Add Game Category
         </button>
         </div>
         <table class="table th-light">
             <thead>
                 <tr>
+                    <th>
+
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
@@ -26,17 +29,23 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Year)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.IGNRating)
-                    </th>
+
  
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="">
                 @foreach (var item in Model)
                 {
                     <tr>
+                       
+                        <td class="mx-0">
+
+                            <button class="th-btn rounded-2 p-1 m-0" style="width:100%;" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
+                                View
+                            </button>
+
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
@@ -46,18 +55,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Year)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IGNRating)
-                        </td>
 
-                        <td>
-                            
-                            <button class="th-btn rounded-2 p-1" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
-                                View Game
-                            </button>
-                            
-                        </td>
+                        
+                       
                     </tr>
+     
+                       
                 }
             </tbody>
         </table>

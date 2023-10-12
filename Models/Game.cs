@@ -31,6 +31,7 @@ namespace TermProject1.Models
 
 
         [Required(ErrorMessage = "Please select at least 1 Category")]
+        [Display(Name = "Game Categories")]
         public List<Category> GameCategories { get; set; } = new List<Category>();
 
     }
