@@ -1,10 +1,12 @@
 ﻿#nullable disable
 using Humanizer.Localisation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TermProject1.Models;
 
 // https://www.youtube.com/watch?v=ZXynHdk35fU&t=2s ADDING CATEGORY 
 
@@ -12,6 +14,7 @@ namespace TermProject1.Models
 {
     public class GameContext : DbContext
     {
+        //public UserManager UserManager { get; set; }
         public GameContext(DbContextOptions<GameContext> options) : base(options){ }
         public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -76,6 +79,13 @@ namespace TermProject1.Models
                 new { GameCategoryId = 8, GameId = 3, CategoryId = "FAN" }
 
             );
+            modelBuilder.Entity<Review>().HasData(
+                new { ReviewId = 1, GameId = 1,GameRating= 9.3f, GameReview="This game is absolutely breathtaking. The visual graphics and interactions will have you stomping around in the snow for hours. I highly reccomend this game to anyone who likes a semi-casual shooter with amazing graphics and a gret story."},
+                new { ReviewId = 2, GameId = 2, GameRating = 7.5f, GameReview = "Starfield is a cool space experiece with quite a bit to offer. It has game physics that will keep you insterested, but I have a hard time wanting to follow to story. I'd rather just explore the vastness of space." },
+                new { ReviewId = 3, GameId = 2, GameRating = 9.3f, GameReview = "BEST GAME EVER I LOVE SPACE" },
+                new { ReviewId = 4, GameId = 3, GameRating = 9f, GameReview = "Elden Ring is a gorgeous open world game, with seamless graphics and fighting mechanics. It is a beautifully made game, though it is very difficult!" }
+            );
         }
+        public DbSet<TermProject1.Models.Review>? Review { get; set; }
     }
 }

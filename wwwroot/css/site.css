@@ -3,6 +3,10 @@
     Light: #9CAEBC, rgb(190, 213, 255)
     Gold: #E7D51D, #E2BF31
 */
+.a-cl, .a-cl:hover{
+    text-decoration: none !important;
+    color: #131C2D !important;
+}
 
 .th-bg-darkblue {
     background-color: rgba(19, 27, 38, .85);
@@ -11,11 +15,13 @@
     background-color: rgba(19, 27, 38, .7);
 }
 .th-light {
-    color: #C5D0D6;
-    color:;
+    color: rgb(190, 213, 255);
 }
 .th-gold {
     color: #E2BF31;
+}
+th-dark {
+    color: #131C2D;
 }
 .th-btn {
     width: 200px;
