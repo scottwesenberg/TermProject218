@@ -6,11 +6,18 @@
 
 
 
-<div class="th-bg-darkblue rounded-2 p-2">
+<div class="th-bg-darkblue rounded-2 p-2 " sstyle="max-height:80vh;">
     <h2 class="th-light">Game Details</h2>
 
     <hr />
-    <dl class="row th-light">
+    <button type="button" class="th-btn text-center rounded-3">
+        <a asp-controller="Review" asp-action="Create" asp-route-gameId="@Model?.Id" class="a-cl th-gold" >Review Game</a>
+
+    </button>
+    <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Review/Index'">
+        View Reviews
+    </button>
+    <dl class="row th-light pt-3">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -52,17 +59,14 @@
     </dl>
 
     <div class="">
-        <button class="th-btn rounded-2 p-1" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.Id })';">
+        <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.Id })';">
             Edit
         </button>
-        <button class="th-btn rounded-2 p-1" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.Id })';">
+        <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.Id })';">
             Delete
         </button>
-        <button type="button" class="th-btn text-center rounded-3 p-1 " >
-            <a asp-controller="Review" asp-action="Create" asp-route-gameId="@Model?.Id" class="a-cl th-dark ">Review</a>
 
-        </button>
-        <button type="button" class="th-btn-other text-center rounded-3 p-1 "  onclick="window.location.href= '/Game/Index'">
+        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2"  onclick="window.location.href= '/Game/Index'">
             Back to List
         </button>
     </div>

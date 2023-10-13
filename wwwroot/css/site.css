@@ -3,11 +3,19 @@
     Light: #9CAEBC, rgb(190, 213, 255)
     Gold: #E7D51D, #E2BF31
 */
-.a-cl, .a-cl:hover{
+.a-cl, .a-cl:hover {
+    width: 200px !important;
+    height: 40px !important;
     text-decoration: none !important;
     color: #131C2D !important;
 }
-
+.th-scroll {
+    overflow:scroll;
+}
+.th-div-full {
+    height:70vh; 
+    overflow:auto;
+}
 .th-bg-darkblue {
     background-color: rgba(19, 27, 38, .85);
 }
