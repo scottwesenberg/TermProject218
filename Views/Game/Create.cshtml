@@ -8,8 +8,8 @@
 
 
 <hr />
-<div class="row th-bg-darkblue rounded-2 p-2">
-    <div class="col-md-8">
+<div class="row th-bg-darkblue rounded-2 p-2 overflow-auto" style="height:65vh;">
+    <div class="col-md-8 ">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -24,6 +24,21 @@
                 <input asp-for="Creator" class="form-control" />
                 <span asp-validation-for="Creator" class="text-danger"></span>
             </div>
+            <div class="form-group categories-container">
+                <label>Game Categories (Select all that apply)</label>
+                <div class="checkbox-group mt-5">
+                    @foreach (var category in ViewBag.CategoryList)
+                    {
+                        <div class="category-item">
+                            <input type="checkbox" name="GameCategories" value="@category.Value" />
+                            <label>@category.Text</label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+
 
             @* <div class="form-group">
                 <label asp-for="GameCategories" class="control-label"></label>

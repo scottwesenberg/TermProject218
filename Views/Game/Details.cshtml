@@ -34,7 +34,11 @@
             @Html.DisplayNameFor(model => model.GameCategories)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.GameCategories)
+            @foreach (var category in Model.GameCategories)
+            {
+                <span>@category.Name</span>
+                <br />
+            }
         </dd>
 
         <dt class = "col-sm-2">

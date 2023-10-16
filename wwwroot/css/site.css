@@ -95,3 +95,16 @@ body {
 .rounded-15{
     border-radius:15px;
 }
+.categories-container {
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px; /* Adjust the gap as needed */
+}
+
+.category-item {
+    flex-basis: 50%; /* Each item takes half the available space */
+    display: flex;
+    align-items: center;
+    height: 15px; /* Set the desired height for each checkbox item */
+}

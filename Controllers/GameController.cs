@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TermProject1.Models;
+
+
 
 namespace TermProject1.Controllers
 {
@@ -35,6 +40,7 @@ namespace TermProject1.Controllers
             }
 
             var game = await _context.Games
+                .Include(g => g.GameCategories) // Include the related categories
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (game == null)
             {
@@ -48,7 +54,11 @@ namespace TermProject1.Controllers
         public IActionResult Create()
         {
             var categories = _context.Categories.ToList();
-            var categorySelectList = new SelectList(categories, "Id", "Name");
+            var categorySelectList = categories.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            }).ToList();
 
             ViewBag.CategoryList = categorySelectList;
 
@@ -56,16 +66,40 @@ namespace TermProject1.Controllers
         }
 
         // POST: Game/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GameId,Name,Creator,Year,IGNRating,List<Category> GameCategories,Description")] Game game)
+        public async Task<IActionResult> Create([Bind("GameId,Name,Creator,Year,IGNRating,Description,GameCategories")] Game game)
         {
+            
+
+            // If ModelState is not valid, redisplay the form with validation errors
+            var categories = _context.Categories.ToList();
+            var categorySelectList = categories.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            }).ToList();
+
+            ViewBag.CategoryList = categorySelectList;
+            if (categorySelectList != null)
+            {
+                foreach (var categoryId in categorySelectList)
+                {
+                    var category = _context.Categories.FirstOrDefault(c => c.Id == categoryId.ToString());
+                    if (category != null)
+                    {
+                        game.GameCategories.Add(category);
+                    }
+                }
+            }
             if (ModelState.IsValid)
             {
+                // Add the game to the context
                 _context.Add(game);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(game);
