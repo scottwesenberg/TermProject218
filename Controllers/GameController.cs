@@ -42,6 +42,7 @@ namespace TermProject1.Controllers
             var game = await _context.Games
                 .Include(g => g.GameCategories) // Include the related categories
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (game == null)
             {
                 return NotFound();
@@ -53,16 +54,11 @@ namespace TermProject1.Controllers
         // GET: Game/Create
         public IActionResult Create()
         {
-            var categories = _context.Categories.ToList();
-            var categorySelectList = categories.Select(c => new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.Name
-            }).ToList();
+            var addGameViewModel = new AddGameViewModel();
 
-            ViewBag.CategoryList = categorySelectList;
+            addGameViewModel.Categories = _context.Categories.ToList();
 
-            return View();
+            return View(addGameViewModel);
         }
 
         // POST: Game/Create
@@ -70,39 +66,37 @@ namespace TermProject1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GameId,Name,Creator,Year,IGNRating,Description,GameCategories")] Game game)
+        public async Task<IActionResult> Create(AddGameViewModel addGameViewModel)
         {
             
 
-            // If ModelState is not valid, redisplay the form with validation errors
+            
             var categories = _context.Categories.ToList();
-            var categorySelectList = categories.Select(c => new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.Name
-            }).ToList();
 
-            ViewBag.CategoryList = categorySelectList;
-            if (categorySelectList != null)
-            {
-                foreach (var categoryId in categorySelectList)
-                {
-                    var category = _context.Categories.FirstOrDefault(c => c.Id == categoryId.ToString());
-                    if (category != null)
-                    {
-                        game.GameCategories.Add(category);
-                    }
-                }
-            }
             if (ModelState.IsValid)
             {
                 // Add the game to the context
-                _context.Add(game);
+                _context.Add(addGameViewModel.Game);
+                _context.SaveChanges();
+
+                //add GameCategories
+                foreach (var category in addGameViewModel.CategoryIds)
+                {
+                    var gameCategory = new GameCategory
+                    {
+                        GameId = addGameViewModel.Game.Id,
+                        CategoryId = category
+                    };
+
+                    _context.GameCategories.Add(gameCategory);
+                }
+
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+
+            return View(addGameViewModel);
         }
 
         // GET: Game/Edit/5

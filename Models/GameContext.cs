@@ -18,6 +18,7 @@ namespace TermProject1.Models
         public GameContext(DbContextOptions<GameContext> options) : base(options){ }
         public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<GameCategory> GameCategories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

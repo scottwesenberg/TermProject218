@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TermProject1.Models;
 
@@ -11,9 +12,10 @@ using TermProject1.Models;
 namespace TermProject1.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20231017225953_Category2")]
+    partial class Category2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
