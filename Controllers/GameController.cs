@@ -30,17 +30,30 @@ namespace TermProject1.Controllers
                           View(await _context.Games.ToListAsync()) :
                           Problem("Entity set 'GameContext.Games'  is null.");
         }
+        [HttpPost]
+        public IActionResult IndexWithSearch(string search)
+        {
+            // Query all games or filter based on the search query
+            var games = string.IsNullOrEmpty(search)
+                ? _context.Games.ToList()
+                : _context.Games.Where(g => g.Name.Contains(search)).ToList();
+
+            ViewBag.SearchQuery = search; // Pass the search query to the view
+
+            return View("Index",games);
+        }
+
 
         // GET: Game/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Games == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
+            // Retrieve the game by its ID
             var game = await _context.Games
-                .Include(g => g.GameCategories) // Include the related categories
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (game == null)
@@ -48,8 +61,25 @@ namespace TermProject1.Controllers
                 return NotFound();
             }
 
+            // Retrieve the associated categories for the game
+            var categoryIds = await _context.GameCategories
+                .Where(gc => gc.GameId == id)
+                .Select(gc => gc.CategoryId)
+                .ToListAsync();
+
+            // Retrieve the Category objects for the associated category IDs
+            var categories = await _context.Categories
+                .Where(c => categoryIds.Contains(c.Id))
+                .ToListAsync();
+
+            // Add the retrieved categories to the game model
+            game.GameCategories = categories;
+
             return View(game);
         }
+
+
+
 
         // GET: Game/Create
         public IActionResult Create()

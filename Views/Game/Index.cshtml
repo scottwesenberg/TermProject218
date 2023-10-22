@@ -3,64 +3,47 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class=" d-flex justify-content-center align-items-center" style="min-height: 60vh;">
-    <div class="th-bg-darkblue rounded-2 p-3 " style="width: 100%;">
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="th-bg-darkblue rounded-2 p-3" style="width: 100%;">
         <h1 class="p-2 text-center th-light">Games</h1>
-        <div class=" text-end pe-5">
-        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Create'">
-            Add New Game
-        </button>
-        @* <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Category/Create'">
-            Add Game Category
-        </button> *@
+        <div class="text-end pe-5">
+            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Create'">
+                Add New Game
+            </button>
+            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Category/Create'">
+                Add Game Category
+            </button>
         </div>
+
+        @if (!string.IsNullOrEmpty(ViewBag.SearchQuery))
+        {
+            <h4 class="pt-2">Search Results for "@ViewBag.SearchQuery" </h4>
+            <a asp-action="Index" asp-controller="Game" style="font-size: 1.1em;">All games</a>
+        }
+
         <table class="table th-light">
             <thead>
                 <tr>
-                    <th>
-
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Creator)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Year)
-                    </th>
-
- 
                     <th></th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Creator)</th>
+                    <th>@Html.DisplayNameFor(model => model.Year)</th>
                 </tr>
             </thead>
             <tbody class="">
                 @foreach (var item in Model)
                 {
                     <tr>
-                       
                         <td class="mx-0">
-
                             <button class="th-btn rounded-2 p-1 m-0" style="width:100%;" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
                                 View
                             </button>
-
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Creator)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Year)
-                        </td>
-
-                        
-                       
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Creator)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Year)</td>
                     </tr>
-     
-                       
                 }
             </tbody>
         </table>
