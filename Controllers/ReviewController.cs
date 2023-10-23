@@ -22,12 +22,19 @@ namespace TermProject1.Controllers
         // GET: Review
         public IActionResult Index(int? gameId)
         {
+            ViewBag.Game = gameId;
             if (gameId == null)
             {
+                ViewBag.Game = "All Reviews"; // Default message when no specific game is selected
                 var gameContext = _context.Review.Include(r => r.Game);
                 return View(gameContext.ToList());
             }
-
+            else
+            {
+                // Query the game name based on gameId
+                var game = _context.Games.FirstOrDefault(g => g.Id == gameId);
+                ViewBag.Game = game != null ? game.Name : "Game Not Found"; // Set the game name or a default message
+            }
             // Query reviews based on gameId
             var reviews = _context.Review.Where(r => r.GameId == gameId)
                 .Include(r => r.Game).ToList();

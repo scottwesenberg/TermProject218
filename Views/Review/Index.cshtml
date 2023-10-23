@@ -4,9 +4,13 @@
     ViewData["Title"] = "Reviews";
 }
 <div class="th-bg-darkblue th p-2 rounded-2 th-div-full" >
-    <h3>Index</h3>
-
-   
+    <h3>Reviews</h3>
+    @if (!string.IsNullOrEmpty(ViewBag.Game))
+    {
+        <h5 class="pt-2">@ViewBag.Game </h5>
+        
+    }
+    
     <table class="table th-light">
         <thead>
             <tr>
@@ -15,7 +19,7 @@
                     @Html.DisplayNameFor(model => model.Game)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.GameRating)
+                    Rating
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.GameReview)

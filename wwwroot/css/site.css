@@ -13,7 +13,7 @@
     overflow:scroll;
 }
 .th-div-full {
-    height:80vh; 
+    max-height:80vh; 
     overflow:auto;
 }
 .th-bg-darkblue {
