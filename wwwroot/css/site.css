@@ -76,7 +76,9 @@ html {
   position: relative;
   min-height: 100%;
 }
-
+a:hover {
+    color:white !important;
+}
 body {
   margin-bottom: 60px;
 }
@@ -100,7 +102,7 @@ body {
     
     display: flex;
     flex-wrap: wrap;
-    gap: 1px; /* Adjust the gap as needed */
+    gap: 1px; 
 }
 
 .category-item {

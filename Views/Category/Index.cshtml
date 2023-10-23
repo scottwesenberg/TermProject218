@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Categories";
 }
-<div class ="rounded-2 th-bg-darkblue p-2 overflow-auto" style="height:80vh;">
+<div class ="rounded-2 th-bg-darkblue p-2 th-div-full">
     <h1>Index</h1>
 
     <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Category/Create'">
@@ -12,6 +12,9 @@
     <table class="table th-light">
         <thead>
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -23,6 +26,9 @@
         <tbody>
     @foreach (var item in Model) {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -37,7 +43,7 @@
                         </button>
                 </td>
                 <td>
-                    <button class="th-btn rounded-2 p-1 m-0" style="width:100%;" onclick="window.location.href = '@Url.Action("Delete", new { id = item.Id })';">
+                    <button class="th-btn-other rounded-2 p-1 m-0" style="width:100%;" onclick="window.location.href = '@Url.Action("Delete", new { id = item.Id })';">
                         Delete
                     </button>
                 </td>

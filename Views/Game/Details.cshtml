@@ -10,9 +10,8 @@
     <h2 class="th-light">Game Details</h2>
 
     <hr />
-    <button type="button" class="th-btn text-center rounded-3">
-        <a asp-controller="Review" asp-action="Create" asp-route-gameId="@Model?.Id" class="a-cl th-gold" >Review Game</a>
-
+    <button class="th-btn rounded-2" onclick="window.location.href = '@Url.Action("Create", "Review", new { gameId = Model.Id })';">
+        Leave Review
     </button>
     <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Review/Index?gameId=@Model?.Id'">
         View Reviews
@@ -73,7 +72,7 @@
         </button>
 
         <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2"  onclick="window.location.href= '/Game/Index'">
-            Back to List
+            Back to Games
         </button>
     </div>
 </div>

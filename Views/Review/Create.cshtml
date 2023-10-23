@@ -28,9 +28,10 @@
                     <span asp-validation-for="GameReview" class="text-danger"></span>
                 </div>
                 <input type="submit" value="Create" class="th-btn mt-2 rounded-3" />
-                <input type="reset" value="Reset" class="th-btn-other mt-2 rounded-3" />
-                <button type="button" class="th-btn text-center rounded-3 p-1 mt-2">
-                    <a asp-controller="Game" asp-action="Details" asp-route-id="@Model?.GameId" class="a-cl th-dark ">Back to Game</a>
+                <input type="reset" value="Reset" class="th-btn mt-2 rounded-3" />
+
+                <button class="th-btn-other rounded-2 mt-2" onclick="window.location.href = '@Url.Action("Details", "Game", new { id = Model?.GameId })';">
+                    Back to Game
                 </button>
             </form>
         </div>

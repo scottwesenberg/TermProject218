@@ -4,7 +4,7 @@
     ViewData["Title"] = "Games";
 }
 
-<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+<div class="d-flex justify-content-center align-items-center th-div-full" style="min-height: 60vh;">
     <div class="th-bg-darkblue rounded-2 p-3" style="width: 100%;">
         <h1 class="p-2 text-center th-light">Games</h1>
         <div class="text-end pe-5">
@@ -32,6 +32,7 @@
                     <th>@Html.DisplayNameFor(model => model.Year)</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody class="">
@@ -44,14 +45,20 @@
                         <td>@Html.DisplayFor(modelItem => item.Creator)</td>
                         <td>@Html.DisplayFor(modelItem => item.Year)</td>
                         <td >
-                            <button class="th-btn rounded-2 " style="width:100%;" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
+
+                            <button class="th-btn-other rounded-2 " style="width:100%;" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
                                 Game
                             </button>
-                            
                         </td>
+
                         <td>
                             <button class="th-btn-other rounded-2 " style="width:100%;" onclick="window.location.href = '/Review/Index?gameId=@item.Id'">
                                 Reviews
+                            </button>
+                        </td>
+                        <td>
+                            <button class="th-btn rounded-2" style="width:100%;" onclick="window.location.href = '@Url.Action("Create", "Review", new { gameId = item.Id })';">
+                                Leave Review
                             </button>
                         </td>
                     </tr>
