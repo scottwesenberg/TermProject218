@@ -20,10 +20,19 @@ namespace TermProject1.Controllers
         }
 
         // GET: Review
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? gameId)
         {
-            var gameContext = _context.Review.Include(r => r.Game);
-            return View(await gameContext.ToListAsync());
+            if (gameId == null)
+            {
+                var gameContext = _context.Review.Include(r => r.Game);
+                return View(gameContext.ToList());
+            }
+
+            // Query reviews based on gameId
+            var reviews = _context.Review.Where(r => r.GameId == gameId)
+                .Include(r => r.Game).ToList();
+
+            return View(reviews);
         }
 
         // GET: Review/Details/5
@@ -96,7 +105,7 @@ namespace TermProject1.Controllers
             {
                 return NotFound();
             }
-            ViewData["GameId"] = new SelectList(_context.Games, "Id", "Creator", review.GameId);
+            ViewBag.GameName = review.GameId;
             return View(review);
         }
 

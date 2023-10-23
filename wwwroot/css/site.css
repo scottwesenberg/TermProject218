@@ -13,7 +13,7 @@
     overflow:scroll;
 }
 .th-div-full {
-    height:70vh; 
+    height:80vh; 
     overflow:auto;
 }
 .th-bg-darkblue {
@@ -58,7 +58,8 @@ th-dark {
 }
 .th-btn:hover, .th-btn-other:hover {
     
-    font-size: 1.2em;
+    font-size: 1.0em;
+    color:white;
     text-decoration: none;
 }
 html {
