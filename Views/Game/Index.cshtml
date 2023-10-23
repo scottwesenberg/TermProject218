@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TermProject1.Models.Game>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Games";
 }
 
 <div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
@@ -45,7 +45,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Year)</td>
                         <td >
                             <button class="th-btn rounded-2 " style="width:100%;" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
-                                View
+                                Game
                             </button>
                             
                         </td>
