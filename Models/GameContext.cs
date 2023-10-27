@@ -19,6 +19,8 @@ namespace TermProject1.Models
         public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<GameCategory> GameCategories { get; set; }
+        public DbSet<TermProject1.Models.Review>? Review { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -87,6 +89,5 @@ namespace TermProject1.Models
                 new { ReviewId = 4, GameId = 3, GameRating = 9f, GameReview = "Elden Ring is a gorgeous open world game, with seamless graphics and fighting mechanics. It is a beautifully made game, though it is very difficult!" }
             );
         }
-        public DbSet<TermProject1.Models.Review>? Review { get; set; }
     }
 }
