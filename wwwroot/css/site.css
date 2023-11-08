@@ -56,14 +56,16 @@ th-dark {
 .th-btn-other>a:visited, .th-btn-other>a:hover{
     text-decoration:none;
 }
-.th-btn:hover, .th-btn-other:hover {
-    
-    font-size: 1.0em;
-    color:white;
-    text-decoration: none;
+.th-btn:hover {
+    color: #131C2D;
+    border: 2px solid white;
+}
+.th-btn-other:hover {
+    color: white;
+    border: 2px solid white;
 }
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
