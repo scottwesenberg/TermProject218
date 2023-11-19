@@ -13,7 +13,7 @@
     overflow:scroll;
 }
 .th-div-full {
-    max-height:80vh; 
+    max-height:70vh; 
     overflow:auto;
 }
 .th-bg-darkblue {
@@ -33,11 +33,11 @@ th-dark {
 }
 .th-btn {
     width: 200px;
-    height: 40px ;
+    height: 40px;
     background-color: #E2BF31;
     color: #131C2D;
     border: 2px solid #E2BF31;
-
+    font-weight: bolder;
 }
 .th-btn-other {
     width: 200px;
@@ -45,12 +45,9 @@ th-dark {
     background-color: #131C2D;
     color: #E2BF31;
     border: 2px solid #E2BF31;
-
     text-decoration: none;
 }
-.th-btn-index{
 
-}
 
 
 .th-btn-other>a:visited, .th-btn-other>a:hover{
