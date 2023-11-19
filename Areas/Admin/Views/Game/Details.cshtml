@@ -1,0 +1,77 @@
+﻿@model TermProject1.Models.Game
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<div class="th-bg-darkblue rounded-2 p-2 th-div-full"  >
+    <h2 class="th-light">Game Details</h2>
+
+    <hr />
+    <button class="th-btn rounded-2" onclick="window.location.href = '@Url.Action("Create", "Review", new { gameId = Model.Id })';">
+        Leave Review
+    </button>
+    <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Review/Index?gameId=@Model?.Id'">
+        View Reviews
+    </button>
+
+    <dl class="row th-light pt-3" style="width:99%;">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Creator)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Creator)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GameCategories)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var category in Model.GameCategories)
+            {
+                <span>@category.Name</span>
+                <br />
+            }
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IGNRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IGNRating)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+
+    <div class="">
+        <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.Id })';">
+            Edit
+        </button>
+        <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.Id })';">
+            Delete
+        </button>
+
+        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2"  onclick="window.location.href= '/Game/Index'">
+            Back to Games
+        </button>
+    </div>
+</div>
