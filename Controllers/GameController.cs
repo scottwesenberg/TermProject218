@@ -24,11 +24,39 @@ namespace TermProject1.Controllers
         }
 
         // GET: Game
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index(string sortOrder)
         {
-              return _context.Games != null ? 
-                          View(await _context.Games.ToListAsync()) :
-                          Problem("Entity set 'GameContext.Games'  is null.");
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CreatorSortParam"] = sortOrder == "creator" ? "creator_desc" : "creator";
+
+            ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
+
+            var games = from g in _context.Games
+                        select g;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    games = games.OrderByDescending(s => s.Name);
+                    break;
+                case "date":
+                    games = games.OrderBy(s => s.Year);
+                    break;
+                case "date_desc":
+                    games = games.OrderByDescending(s => s.Year);
+                    break;
+                case "creator":
+                    games = games.OrderBy(s => s.Creator);
+                    break;
+                case "creator_desc":
+                    games = games.OrderByDescending(s => s.Creator);
+                    break;
+                default:
+                    games = games.OrderBy(s => s.Name);
+                    break;
+            }
+            return View(games);
         }
         [HttpPost]
         public IActionResult IndexWithSearch(string search)

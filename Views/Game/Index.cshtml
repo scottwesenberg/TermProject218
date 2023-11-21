@@ -7,11 +7,22 @@
 <div class="d-flex justify-content-center align-items-center th-div-full" style="min-height: 60vh;">
     <div class="th-bg-darkblue rounded-2 p-3" style="width: 100%;">
         <h1 class="p-2 th-light">Games</h1>
-        <div class="text-end pe-5">
-            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Create'">
+        <div class="text-end pe-5 ">
+            <form method="post" asp-controller="Game" asp-action="IndexWithSearch" class="d-flex align-items-center col-sm-11  ms-auto">
+                <h5 class="  text-center me-2 me-auto th-light col-sm-3">Search Games: </h5>
+                <div class="input-group">
+                    <input type="search" class="form-control col-sm-8" name="search" placeholder="Skyrim...">
+                    <div class="input-group-append ">
+                        <button type="submit" class="th-btn rounded-2 col-sm-1" style="width:10vw;">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Game/Create'">
                 Add New Game
             </button>
-            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Category/Create'">
+            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Category/Create'">
                 Add Game Category
             </button>
         </div>
@@ -25,11 +36,17 @@
         <table class="table th-light">
             <thead>
                 <tr>
-                   
 
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.Creator)</th>
-                    <th>@Html.DisplayNameFor(model => model.Year)</th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" class="th-light">Game</a>
+                    </th>
+                    
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CreatorSortParam"]" class="th-light">Creator</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]" class="th-light">Release Year</a>
+                    </th>
                     <th></th>
                     <th></th>
                     <th></th>

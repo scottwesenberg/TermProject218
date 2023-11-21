@@ -26,7 +26,7 @@ namespace TermProject1.Controllers
             if (gameId == null)
             {
                 ViewBag.Game = "All Reviews"; // Default message when no specific game is selected
-                var gameContext = _context.Review.Include(r => r.Game);
+                var gameContext = _context.Review.Include(r => r.Game).OrderBy(r => r.Game);
                 return View(gameContext.ToList());
             }
             else
