@@ -47,7 +47,10 @@ th-dark {
     border: 2px solid #E2BF31;
     text-decoration: none;
 }
-
+button:disabled {
+    background-color: dimgrey;
+    opacity:.5;
+}
 
 
 .th-btn-other>a:visited, .th-btn-other>a:hover{

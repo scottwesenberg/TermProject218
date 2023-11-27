@@ -69,9 +69,10 @@
                         </td>
 
                         <td>
-                            <button class="th-btn-other rounded-2 " style="width:100%;" onclick="window.location.href = '/Review/Index?gameId=@item.Id'">
+                            <a class="th-btn-other rounded-2" style="width:100%;" asp-action="Index" asp-controller="Review" asp-route-gameId="@item.Id" asp-route-pageNumber="1">
                                 Reviews
-                            </button>
+                            </a>
+
                         </td>
                         <td>
                             <button class="th-btn rounded-2" style="width:100%; height:40px;font-size:.9em; " onclick="window.location.href = '@Url.Action("Create", "Review", new { gameId = item.Id })';">

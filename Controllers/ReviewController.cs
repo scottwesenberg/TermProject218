@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using TermProject1.Migrations;
 using TermProject1.Models;
 
 namespace TermProject1.Controllers
@@ -20,26 +21,50 @@ namespace TermProject1.Controllers
         }
 
         // GET: Review
-        public IActionResult Index(int? gameId)
+        //public async Task<IActionResult> Index(int? gameId, int? pageNumber)
+        //{
+        //    ViewBag.Game = gameId;
+        //    int pageSize = 4 ;
+
+        //    if (gameId == null)
+        //    {
+        //        ViewBag.Game = "All Reviews"; // Default message when no specific game is selected
+        //        var gameContext = _context.Review.Include(r => r.Game).OrderBy(r => r.Game);
+        //        return View(await PaginatedList<Review>.CreateAsync(gameContext.AsNoTracking(), pageNumber ?? 1, pageSize));
+        //    }
+        //    else
+        //    {
+        //        // Query the game name based on gameId
+        //        var game = _context.Games.FirstOrDefault(g => g.Id == gameId);
+        //        ViewBag.Game = game != null ? game.Name : "Game Not Found"; // Set the game name or a default message
+        //    }
+
+        //    // Query reviews based on gameId
+        //    var reviews = _context.Review.Where(r => r.GameId == gameId)
+        //        .Include(r => r.Game);
+
+        //    return View(await PaginatedList<Review>.CreateAsync(reviews.AsQueryable(), pageNumber ?? 1, pageSize));
+        //}
+
+        public async Task<IActionResult> Index(int? gameId, int? pageNumber)
         {
-            ViewBag.Game = gameId;
-            if (gameId == null)
+            IQueryable<Review> reviews = _context.Review.Include(r => r.Game).OrderBy(r => r.Game);
+
+            if (gameId != null)
             {
-                ViewBag.Game = "All Reviews"; // Default message when no specific game is selected
-                var gameContext = _context.Review.Include(r => r.Game).OrderBy(r => r.Game);
-                return View(gameContext.ToList());
+                // Filter reviews based on gameId
+                reviews = reviews.Where(r => r.GameId == (gameId ?? r.GameId));
+                ViewBag.GameId = gameId; // Add this line to store the gameId in ViewBag
             }
             else
             {
-                // Query the game name based on gameId
-                var game = _context.Games.FirstOrDefault(g => g.Id == gameId);
-                ViewBag.Game = game != null ? game.Name : "Game Not Found"; // Set the game name or a default message
+                ViewBag.GameId = null; // Add this line to indicate no specific game filter
             }
-            // Query reviews based on gameId
-            var reviews = _context.Review.Where(r => r.GameId == gameId)
-                .Include(r => r.Game).ToList();
 
-            return View(reviews);
+            ViewBag.Game = gameId != null ? _context.Games.FirstOrDefault(g => g.Id == gameId)?.Name : "All Reviews";
+
+            int pageSize = 2;
+            return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Review/Details/5

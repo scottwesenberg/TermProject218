@@ -29,7 +29,6 @@ namespace TermProject1.Controllers
         {
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CreatorSortParam"] = sortOrder == "creator" ? "creator_desc" : "creator";
-
             ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
 
             var games = from g in _context.Games
