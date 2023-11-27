@@ -3,12 +3,8 @@
     Light: #9CAEBC, rgb(190, 213, 255)
     Gold: #E7D51D, #E2BF31
 */
-.a-cl, .a-cl:hover {
-    width: 200px !important;
-    height: 40px !important;
-    text-decoration: none !important;
-    color: #131C2D !important;
-}
+
+
 .th-scroll {
     overflow:scroll;
 }
@@ -32,25 +28,22 @@ th-dark {
     color: #131C2D;
 }
 .th-btn {
-    width: 200px;
-    height: 40px;
+    width: auto;
+    min-height: 40px;
     background-color: #E2BF31;
     color: #131C2D;
     border: 2px solid #E2BF31;
     font-weight: bolder;
 }
 .th-btn-other {
-    width: 200px;
+    width: auto;
     height: 40px;
     background-color: #131C2D;
     color: #E2BF31;
     border: 2px solid #E2BF31;
     text-decoration: none;
 }
-button:disabled {
-    background-color: dimgrey;
-    opacity:.5;
-}
+
 
 
 .th-btn-other>a:visited, .th-btn-other>a:hover{
