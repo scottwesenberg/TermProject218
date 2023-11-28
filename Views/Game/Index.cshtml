@@ -19,12 +19,16 @@
                     </div>
                 </div>
             </form>
-            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Game/Create'">
-                Add New Game
-            </button>
-            <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Category/Create'">
-                Add Game Category
-            </button>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+            {
+                <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Game/Create'">
+                    Add New Game
+                </button>
+                <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Category/Create'">
+                    Add Game Category
+                </button>
+            }
+            
         </div>
 
         @if (!string.IsNullOrEmpty(ViewBag.SearchQuery))
