@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TermProject1.Migrations;
 using TermProject1.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace TermProject1.Controllers
 {
+    
     public class ReviewController : Controller
     {
         private readonly GameContext _context;
@@ -20,32 +22,8 @@ namespace TermProject1.Controllers
             _context = context;
         }
 
-        // GET: Review
-        //public async Task<IActionResult> Index(int? gameId, int? pageNumber)
-        //{
-        //    ViewBag.Game = gameId;
-        //    int pageSize = 4 ;
-
-        //    if (gameId == null)
-        //    {
-        //        ViewBag.Game = "All Reviews"; // Default message when no specific game is selected
-        //        var gameContext = _context.Review.Include(r => r.Game).OrderBy(r => r.Game);
-        //        return View(await PaginatedList<Review>.CreateAsync(gameContext.AsNoTracking(), pageNumber ?? 1, pageSize));
-        //    }
-        //    else
-        //    {
-        //        // Query the game name based on gameId
-        //        var game = _context.Games.FirstOrDefault(g => g.Id == gameId);
-        //        ViewBag.Game = game != null ? game.Name : "Game Not Found"; // Set the game name or a default message
-        //    }
-
-        //    // Query reviews based on gameId
-        //    var reviews = _context.Review.Where(r => r.GameId == gameId)
-        //        .Include(r => r.Game);
-
-        //    return View(await PaginatedList<Review>.CreateAsync(reviews.AsQueryable(), pageNumber ?? 1, pageSize));
-        //}
-
+        [Authorize(Roles = "Administrator,Manager,User")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index(int? gameId, int? pageNumber)
         {
             IQueryable<Review> reviews = _context.Review.Include(r => r.Game).OrderBy(r => r.Game);
@@ -68,6 +46,8 @@ namespace TermProject1.Controllers
         }
 
         // GET: Review/Details/5
+        [Authorize(Roles = "Administrator,Manager,User")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Review == null)
@@ -87,6 +67,8 @@ namespace TermProject1.Controllers
         }
 
         // GET: Review/Create
+        [Authorize(Roles = "Administrator,Manager,User")]
+
         public IActionResult Create(int? gameId)
         {
             if (!gameId.HasValue)
@@ -112,6 +94,7 @@ namespace TermProject1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Create([Bind("ReviewId,GameId,GameRating,GameReview")] Review review)
         {
             if (ModelState.IsValid)
@@ -125,6 +108,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Review/Edit/5
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Review == null)
@@ -146,6 +130,7 @@ namespace TermProject1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Edit(int id, [Bind("ReviewId,GameId,GameRating,GameReview")] Review review)
         {
             if (id != review.ReviewId)
@@ -178,6 +163,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Review/Delete/5
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Review == null)
@@ -199,6 +185,7 @@ namespace TermProject1.Controllers
         // POST: Review/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager,User")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Review == null)

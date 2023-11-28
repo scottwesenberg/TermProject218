@@ -9,11 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TermProject1.Models;
+using Microsoft.AspNetCore.Authorization;
+
 
 
 
 namespace TermProject1.Controllers
 {
+    
     public class GameController : Controller
     {
         private readonly GameContext _context;
@@ -24,7 +27,8 @@ namespace TermProject1.Controllers
         }
 
         // GET: Game
-
+        [Authorize(Roles = "Administrator,Manager,User")]
+        [AllowAnonymous]
         public IActionResult Index(string sortOrder)
         {
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -58,6 +62,8 @@ namespace TermProject1.Controllers
             return View(games);
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator,Manager,User")]
+        [AllowAnonymous]
         public IActionResult IndexWithSearch(string search)
         {
             // Query all games or filter based on the search query
@@ -72,6 +78,8 @@ namespace TermProject1.Controllers
 
 
         // GET: Game/Details/5
+        [Authorize(Roles = "Administrator,Manager,User")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -109,6 +117,7 @@ namespace TermProject1.Controllers
 
 
         // GET: Game/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public IActionResult Create()
         {
             var addGameViewModel = new AddGameViewModel();
@@ -123,6 +132,7 @@ namespace TermProject1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Create(AddGameViewModel addGameViewModel)
         {
             
@@ -157,6 +167,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Game/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Games == null)
@@ -177,6 +188,7 @@ namespace TermProject1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(int id, [Bind("GameId,Name,Creator,Year,IGNRating")] Game game)
         {
             if (id != game.Id)
@@ -208,6 +220,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Game/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Games == null)
@@ -228,6 +241,7 @@ namespace TermProject1.Controllers
         // POST: Game/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Games == null)
@@ -243,7 +257,6 @@ namespace TermProject1.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool GameExists(int id)
         {
           return (_context.Games?.Any(e => e.Id == id)).GetValueOrDefault();

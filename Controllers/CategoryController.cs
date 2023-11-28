@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TermProject1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TermProject1.Controllers
 {
@@ -20,6 +21,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Category
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Index()
         {
               return _context.Categories != null ? 
@@ -28,6 +30,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Category/Details/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Categories == null)
@@ -46,6 +49,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Category/Create
+        [Authorize(Roles = "Administrator,Manager")]
         public IActionResult Create()
         {
 
@@ -57,6 +61,7 @@ namespace TermProject1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
@@ -69,6 +74,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Category/Edit/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Categories == null)
@@ -89,6 +95,7 @@ namespace TermProject1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Name")] Category category)
         {
             if (id != category.Id)
@@ -120,6 +127,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Category/Delete/5
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.Categories == null)
@@ -140,6 +148,7 @@ namespace TermProject1.Controllers
         // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.Categories == null)

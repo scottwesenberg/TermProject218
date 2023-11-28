@@ -67,16 +67,11 @@
                                 Game
                             </button>
                         </td>
-
-                        
                         <td>
-                            <button  class="th-btn-other rounded-2 mx-0" style="line-height:0;" onclick="window.location.href = '@Url.Action("Index", "Review", new { gameId = item.Id, pageNumber = 1 })';">
+                            <button  class="th-btn-other rounded-2 mx-0" style="width:100%" onclick="window.location.href = '@Url.Action("Index", "Review", new { gameId = item.Id, pageNumber = 1 })';">
                                 Reviews
                             </button>
                         </td>
-
-
-                        
                         <td>
                             <button class="th-btn rounded-2 mx-0 pb-1" style="width:fit-content; max-height:fit-content; line-height:12px;" onclick="window.location.href = '@Url.Action("Create", "Review", new { gameId = item.Id })';">
                                 Review Game
