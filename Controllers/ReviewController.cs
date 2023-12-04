@@ -41,7 +41,7 @@ namespace TermProject1.Controllers
 
             ViewBag.Game = gameId != null ? _context.Games.FirstOrDefault(g => g.Id == gameId)?.Name : "All Reviews";
 
-            int pageSize = 2;
+            int pageSize = 4;
             return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
