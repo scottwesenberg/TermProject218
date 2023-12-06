@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TermProject1.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Diagnostics;
 
 
 
@@ -189,8 +190,9 @@ namespace TermProject1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Manager")]
-        public async Task<IActionResult> Edit(int id, [Bind("GameId,Name,Creator,Year,IGNRating")] Game game)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Creator,Year,IGNRating,Description")] Game game)
         {
+            Debug.WriteLine($"Received edit request for id: {id}, game.Id: {game.Id}");
             if (id != game.Id)
             {
                 return NotFound();
@@ -202,6 +204,8 @@ namespace TermProject1.Controllers
                 {
                     _context.Update(game);
                     await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Details), new { id = game.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -214,7 +218,6 @@ namespace TermProject1.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(game);
         }
