@@ -1,0 +1,18 @@
+﻿.home {
+    position: relative; /* so the canvas can sit on top */
+}
+
+#goldFlakes {
+    position: fixed; /* covers entire screen */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* clicks pass through */
+    z-index: 0; /* BELOW search bar */
+}
+
+.search-container {
+    position: relative; /* make z-index work */
+    z-index: 10; /* above canvas */
+}
