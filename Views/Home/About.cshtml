@@ -1,18 +1,21 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<div class="d-flex justify-content-center align-items-center" style="min-height: 50vh;">
-    <div class="size">
-        <div class="row transparent-bg rounded-2">
-            <div class="col-sm-4">
-                <h2>Our Mission</h2>
-                <p class="text-info">
-                    Our mission is to provide a platform for people to share their opinions about their favorite (or least favorite) video games
-                </p>
-            </div>
-            <div class="col-sm-8 rounded-3">
-                <img src="~/Images/elden.jpg" alt="photography" class="img-fluid" style="max-width: 100%; height: auto;" />
-            </div>
+<div class="th-page-wrap th-div-full">
+    <section class="th-page-card">
+        <div class="th-page-copy">
+            <p class="th-eyebrow">About AGGRO</p>
+            <h1 class="th-page-title">Our Mission</h1>
+            <p class="th-page-text">
+                Our mission is to provide a platform for people to share their opinions about their favorite (or least favorite) video games.
+            </p>
+            <p class="th-page-text">
+                AGGRO stands for <strong class="th-gold">All Games Game Reviews Online</strong>. In true gamer fashion, "aggro" is the attention you pull from enemies. Here, it's the attention the best (and worst) games deserve.
+            </p>
+            <a class="th-btn rounded-2 px-4 py-2 d-inline-block text-decoration-none mt-2" asp-controller="Game" asp-action="Index">Browse Games</a>
         </div>
-    </div>
+        <figure class="th-page-media">
+            <img src="~/Images/elden.jpg" alt="Elden Ring artwork" />
+        </figure>
+    </section>
 </div>

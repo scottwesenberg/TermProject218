@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TermProject1.Models;
+using AllGamesGameReviews.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace TermProject1.Controllers
+namespace AllGamesGameReviews.Controllers
 {
     public class CategoryController : Controller
     {

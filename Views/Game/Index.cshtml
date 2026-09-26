@@ -1,89 +1,91 @@
-﻿@model IEnumerable<TermProject1.Models.Game>
+﻿@using AllGamesGameReviews.Models
+@model PaginatedList<AllGamesGameReviews.Models.Game>
 
 @{
     ViewData["Title"] = "Games";
+    var search = ViewBag.SearchQuery as string;
+    var currentSort = ViewData["CurrentSort"] as string;
 }
 
-<div class="d-flex justify-content-center align-items-center th-div-full" style="min-height: 60vh;">
-    <div class="th-bg-darkblue rounded-2 p-3" style="width: 100%;">
-        <h1 class="p-2 th-light">Games</h1>
-        <div class="text-end pe-5 ">
-            <form method="post" asp-controller="Game" asp-action="IndexWithSearch" class="d-flex align-items-center col-sm-11  ms-auto">
-                <h5 class="  text-center me-2 me-auto th-light col-sm-3">Search Games: </h5>
-                <div class="input-group">
-                    <input type="search" class="form-control col-sm-8" name="search" placeholder="Skyrim...">
-                    <div class="input-group-append ">
-                        <button type="submit" class="th-btn rounded-2 col-sm-1" style="width:10vw;">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-            @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
-            {
-                <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Game/Create'">
-                    Add New Game
-                </button>
-                <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2 col-sm-3" onclick="window.location.href= '/Category/Create'">
-                    Add Game Category
-                </button>
-            }
-            
-        </div>
-
-        @if (!string.IsNullOrEmpty(ViewBag.SearchQuery))
+<div class="th-bg-darkblue rounded-3 th-panel">
+    <div class="th-panel-head">
+        <h1 class="th-light mb-0">Games</h1>
+        @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
         {
-            <h4 class="pt-2">Search Results for "@ViewBag.SearchQuery" </h4>
-            <a asp-action="Index" asp-controller="Game" style="font-size: 1.1em;">All games</a>
+            <div class="d-flex flex-wrap gap-2">
+                <a class="th-btn-other rounded-3 px-3 py-2 text-decoration-none" asp-action="Create">Add New Game</a>
+                <a class="th-btn-other rounded-3 px-3 py-2 text-decoration-none" asp-controller="Category" asp-action="Create">Add Game Category</a>
+            </div>
         }
-
-        <table class="table th-light">
-            <thead>
-                <tr>
-
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" class="th-light">Game</a>
-                    </th>
-                    
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CreatorSortParam"]" class="th-light">Creator</a>
-                    </th>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]" class="th-light">Release Year</a>
-                    </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="">
-                @foreach (var item in Model)
-                {
-                    <tr>
-
-
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Creator)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Year)</td>
-                        <td >
-
-                            <button class="th-btn-other rounded-2 mx-0" style="width:100%;" onclick="window.location.href = '@Url.Action("Details", new { id = item.Id })';">
-                                Game
-                            </button>
-                        </td>
-                        <td>
-                            <button  class="th-btn-other rounded-2 mx-0" style="width:100%" onclick="window.location.href = '@Url.Action("Index", "Review", new { gameId = item.Id, pageNumber = 1 })';">
-                                Reviews
-                            </button>
-                        </td>
-                        <td>
-                            <button class="th-btn rounded-2 mx-0 pb-1" style="width:fit-content; max-height:fit-content; line-height:12px;" onclick="window.location.href = '@Url.Action("Create", "Review", new { gameId = item.Id })';">
-                                Review Game
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
     </div>
+
+    <form method="get" asp-controller="Game" asp-action="Index" class="th-search mb-3">
+        <label for="gameSearch" class="visually-hidden">Search games</label>
+        <input id="gameSearch" type="search" class="form-control" name="search" value="@search" placeholder="Search games, like Skyrim...">
+        <button type="submit" class="th-btn rounded-2 px-3" aria-label="Search">
+            <i class="fa fa-search"></i>
+        </button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(search))
+    {
+        <p class="th-light mb-3">
+            Search results for "@search"
+            <a asp-action="Index" class="th-gold ms-2">Show all games</a>
+        </p>
+    }
+
+    @if (!Model.Any())
+    {
+        <p class="th-light">No games found.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table th-light th-table th-stack align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-search="@search" class="th-light">Game</a>
+                        </th>
+                        <th class="d-none d-md-table-cell">
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["CreatorSortParam"]" asp-route-search="@search" class="th-light">Creator</a>
+                        </th>
+                        <th class="d-none d-sm-table-cell">
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]" asp-route-search="@search" class="th-light">Year</a>
+                        </th>
+                        <th class="text-end"><span class="visually-hidden">Actions</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td class="d-none d-md-table-cell">@Html.DisplayFor(modelItem => item.Creator)</td>
+                            <td class="d-none d-sm-table-cell">@Html.DisplayFor(modelItem => item.Year)</td>
+                            <td>
+                                <div class="th-actions">
+                                    <a class="th-btn-other rounded-2 text-decoration-none" asp-action="Details" asp-route-id="@item.Id">Game</a>
+                                    <a class="th-btn-other rounded-2 text-decoration-none" asp-controller="Review" asp-action="Index" asp-route-gameId="@item.Id" asp-route-pageNumber="1">Reviews</a>
+                                    <a class="th-btn rounded-2 text-decoration-none" asp-controller="Review" asp-action="Create" asp-route-gameId="@item.Id">Review Game</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model.TotalPages > 1)
+    {
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        <nav class="th-pager" aria-label="Games pages">
+            <a asp-action="Index" asp-route-sortOrder="@currentSort" asp-route-search="@search" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-dark rounded-3 px-3 @prevDisabled">Previous</a>
+            <span class="th-light">Page @Model.PageIndex of @Model.TotalPages</span>
+            <a asp-action="Index" asp-route-sortOrder="@currentSort" asp-route-search="@search" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-dark rounded-3 px-3 @nextDisabled">Next</a>
+        </nav>
+    }
 </div>

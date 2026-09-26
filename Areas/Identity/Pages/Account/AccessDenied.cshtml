@@ -3,8 +3,6 @@
 @{
     ViewData["Title"] = "Access denied";
 }
-
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<h1 class="th-auth-title">@ViewData["Title"]</h1>
+<p class="th-auth-sub">Your account doesn't have permission to view this page.</p>
+<a class="w-100 btn btn-lg btn-primary" asp-area="" asp-controller="Game" asp-action="Index">Back to games</a>

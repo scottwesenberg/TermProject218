@@ -1,7 +1,7 @@
-﻿@model TermProject1.Models.Review
+﻿@model AllGamesGameReviews.Models.Review
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Review Details";
 }
 
 
@@ -31,12 +31,15 @@
     </dl>
 
     <div class="">
-        <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.ReviewId })';">
-            Edit
-        </button>
-        <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.ReviewId })';">
-            Delete
-        </button>
+        @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+        {
+            <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.ReviewId })';">
+                Edit
+            </button>
+            <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.ReviewId })';">
+                Delete
+            </button>
+        }
 
         <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Review/Index'">
             Back to Reviews

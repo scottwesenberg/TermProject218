@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace TermProject1.Models
+namespace AllGamesGameReviews.Models
 {
     public class Review
     {

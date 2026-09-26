@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TermProject1.Migrations;
-using TermProject1.Models;
+using AllGamesGameReviews.Migrations;
+using AllGamesGameReviews.Models;
 using Microsoft.AspNetCore.Authorization;
 
 
-namespace TermProject1.Controllers
+namespace AllGamesGameReviews.Controllers
 {
     
     public class ReviewController : Controller
@@ -26,7 +26,7 @@ namespace TermProject1.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(int? gameId, int? pageNumber)
         {
-            IQueryable<Review> reviews = _context.Review.Include(r => r.Game).OrderBy(r => r.Game);
+            IQueryable<Review> reviews = _context.Review.Include(r => r.Game).OrderBy(r => r.Game.Name).ThenBy(r => r.ReviewId);
 
             if (gameId != null)
             {
@@ -41,7 +41,7 @@ namespace TermProject1.Controllers
 
             ViewBag.Game = gameId != null ? _context.Games.FirstOrDefault(g => g.Id == gameId)?.Name : "All Reviews";
 
-            int pageSize = 4;
+            int pageSize = 20;
             return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -103,12 +103,13 @@ namespace TermProject1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GameId"] = new SelectList(_context.Games, "Id", "Creator", review.GameId);
+            ViewData["GameName"] = _context.Games.FirstOrDefault(g => g.Id == review.GameId)?.Name;
+            ViewData["GameId"] = new SelectList(_context.Games, "Id", "Name", review.GameId);
             return View(review);
         }
 
         // GET: Review/Edit/5
-        [Authorize(Roles = "Administrator,Manager,User")]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Review == null)
@@ -130,7 +131,7 @@ namespace TermProject1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Manager,User")]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Edit(int id, [Bind("ReviewId,GameId,GameRating,GameReview")] Review review)
         {
             if (id != review.ReviewId)
@@ -163,7 +164,7 @@ namespace TermProject1.Controllers
         }
 
         // GET: Review/Delete/5
-        [Authorize(Roles = "Administrator,Manager,User")]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Review == null)
@@ -185,7 +186,7 @@ namespace TermProject1.Controllers
         // POST: Review/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Manager,User")]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Review == null)

@@ -1,20 +1,25 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<div class="d-flex justify-content-center align-items-center pb-0" style="min-height: 40vh;">
-    <div class="transparent-bg-w rounded-3 pb-0" style="display: flex; flex-direction: row; align-items: center;">
-        <div class="col-sm-4 text-black ps-2">
-            <h2>Contact Information</h2>
-            <h4>Visit or call us:</h4>
-            <address>
-                1111 Front St.<br />
-                Traverse City, MI 49694<br />
-                <abbr title="Phone"><i class="fa fa-mobile-phone" style="font-size:24px"></i></abbr>
-                231.123.1234
+<div class="th-page-wrap th-div-full">
+    <section class="th-page-card">
+        <div class="th-page-copy">
+            <p class="th-eyebrow">Get in touch</p>
+            <h1 class="th-page-title">Contact Information</h1>
+            <p class="th-page-text mb-3">Questions, feedback or a game you think we're missing? Visit or call us:</p>
+            <address class="th-contact">
+                <div class="th-contact-row">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>1111 Front St.<br />Traverse City, MI 49694</span>
+                </div>
+                <div class="th-contact-row">
+                    <i class="fa fa-mobile-phone" aria-hidden="true"></i>
+                    <a href="tel:2311231234">231.123.1234</a>
+                </div>
             </address>
         </div>
-        <div class="col-sm-8 m-0 p-0 pb-0">
-            <img src="~/Images/reddead.png" alt="red dead redemption 2" class="img-fluid mb-0" style="max-width: 100%; height: auto;" />
-        </div>
-    </div>
+        <figure class="th-page-media">
+            <img src="~/Images/reddead.png" alt="Red Dead Redemption 2 artwork" />
+        </figure>
+    </section>
 </div>

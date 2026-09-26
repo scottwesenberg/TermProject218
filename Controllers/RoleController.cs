@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TermProject1.Controllers
+namespace AllGamesGameReviews.Controllers
 {
     public class RoleController : Controller
     {

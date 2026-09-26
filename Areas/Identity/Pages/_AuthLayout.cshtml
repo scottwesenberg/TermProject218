@@ -1,0 +1,17 @@
+﻿@*
+    Wraps every login, register and account page in the site's dark card style.
+*@
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewData["BodyClass"] = "is-auth";
+    var wide = ViewData["AuthWide"] is bool w && w;
+}
+<div class="th-auth-wrap">
+    <div class="th-auth-card @(wide ? "th-auth-card-wide" : "")">
+        @RenderBody()
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

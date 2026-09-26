@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TermProject1.Models;
+using AllGamesGameReviews.Models;
 
 #nullable disable
 
-namespace TermProject1.Migrations
+namespace AllGamesGameReviews.Migrations
 {
     [DbContext(typeof(GameContext))]
     [Migration("20231013014015_Reviews")]
@@ -24,7 +24,7 @@ namespace TermProject1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("TermProject1.Models.Category", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Category", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -110,7 +110,7 @@ namespace TermProject1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TermProject1.Models.Game", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -171,7 +171,7 @@ namespace TermProject1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TermProject1.Models.GameCategory", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.GameCategory", b =>
                 {
                     b.Property<int>("GameCategoryId")
                         .ValueGeneratedOnAdd()
@@ -244,7 +244,7 @@ namespace TermProject1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TermProject1.Models.Review", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd()
@@ -300,24 +300,24 @@ namespace TermProject1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TermProject1.Models.Category", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Category", b =>
                 {
-                    b.HasOne("TermProject1.Models.Category", null)
+                    b.HasOne("AllGamesGameReviews.Models.Category", null)
                         .WithMany("Categories")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("TermProject1.Models.Game", null)
+                    b.HasOne("AllGamesGameReviews.Models.Game", null)
                         .WithMany("GameCategories")
                         .HasForeignKey("GameId");
                 });
 
-            modelBuilder.Entity("TermProject1.Models.GameCategory", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.GameCategory", b =>
                 {
-                    b.HasOne("TermProject1.Models.Category", "Categories")
+                    b.HasOne("AllGamesGameReviews.Models.Category", "Categories")
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("TermProject1.Models.Game", "Game")
+                    b.HasOne("AllGamesGameReviews.Models.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -328,9 +328,9 @@ namespace TermProject1.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("TermProject1.Models.Review", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Review", b =>
                 {
-                    b.HasOne("TermProject1.Models.Game", "Game")
+                    b.HasOne("AllGamesGameReviews.Models.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,12 +339,12 @@ namespace TermProject1.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("TermProject1.Models.Category", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Category", b =>
                 {
                     b.Navigation("Categories");
                 });
 
-            modelBuilder.Entity("TermProject1.Models.Game", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Game", b =>
                 {
                     b.Navigation("GameCategories");
                 });

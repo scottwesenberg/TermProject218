@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace TermProject1.Migrations
+namespace AllGamesGameReviews.Migrations
 {
     public partial class ItitialCreate : Migration
     {

@@ -1,7 +1,7 @@
 ﻿#nullable disable
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TermProject1.Models
+namespace AllGamesGameReviews.Models
 {
     public class GameCategory
     {

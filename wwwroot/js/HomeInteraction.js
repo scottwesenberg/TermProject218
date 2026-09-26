@@ -1,6 +1,7 @@
 ﻿window.addEventListener('load', () => {
     // Grab the canvas and its 2D drawing context
     const canvas = document.getElementById('goldFlakes');
+    if (!canvas) return; // only the home page has the gold flake canvas
     const ctx = canvas.getContext('2d');
 
     // Resize canvas to always fill the window

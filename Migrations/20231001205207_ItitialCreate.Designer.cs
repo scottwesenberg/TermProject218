@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TermProject1.Models;
+using AllGamesGameReviews.Models;
 
 #nullable disable
 
-namespace TermProject1.Migrations
+namespace AllGamesGameReviews.Migrations
 {
     [DbContext(typeof(GameContext))]
     [Migration("20231001205207_ItitialCreate")]
@@ -24,7 +24,7 @@ namespace TermProject1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("TermProject1.Models.Game", b =>
+            modelBuilder.Entity("AllGamesGameReviews.Models.Game", b =>
                 {
                     b.Property<int>("GameId")
                         .ValueGeneratedOnAdd()

@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "TermProject1": {
+    "AllGamesGameReviews": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

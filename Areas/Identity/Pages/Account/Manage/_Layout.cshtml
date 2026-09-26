@@ -1,29 +1,19 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
-    {
-        Layout = parentLayout.ToString();
-    }
-    else
-    {
-        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
-    }
+    Layout = "/Areas/Identity/Pages/_AuthLayout.cshtml";
+    ViewData["AuthWide"] = true;
 }
-<div class="th-bg-darkblue th-div-full p-2 rounded-2">
-    <h1>Manage your account</h1>
+<p class="th-eyebrow">Your account</p>
+<h1 class="th-auth-title">Manage your account</h1>
 
-    <div>
-        <h2>Change your account settings</h2>
-        <hr />
-        <div class="row" style="max-width:100%;">
-            <div class="col-md-3">
-                <partial name="_ManageNav" />
-            </div>
-            <div class="col-md-9">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
+<div class="th-manage">
+    <aside class="th-manage-nav">
+        <partial name="_ManageNav" />
+    </aside>
+    <section class="th-manage-body">
+        @RenderBody()
+    </section>
 </div>
+
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

@@ -3,22 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - All Games</title>
+    <title>@ViewData["Title"] - AGGRO</title>
+    <meta name="description" content="AGGRO (All Games Game Reviews Online): browse games and read and write player reviews." />
     <link rel="icon" href="/Images/logo.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/HomeInteraction.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/TermProject1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AllGamesGameReviews.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-<body class="home">
+<body class="home @ViewData["BodyClass"]">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 th-bg-darkbluemenu th-gold" >
             <div class="container-fluid">
      
                 <button  class="navbar-brand p-0 bg-transparent " style="border:none;" onclick="window.location.href= '/'">
-                    <img src="/Images/logo.png" class="p-0 mx-auto " style="max-height:150px;" />
+                    <img src="/Images/logo.png" alt="AGGRO: All Games Game Reviews Online" class="p-0 mx-auto brand-logo" />
                 </button>
                
                 <button class="navbar-toggler " type="button" data-bs-toggle="collapse" 
@@ -62,15 +63,15 @@
             </div>
         </nav>
     </header>
-    <div class="container ">
-        <main role="main" class="pb-3 text-white">
+    <div class="container th-main">
+        <main role="main" class="pb-4 text-white">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - TermProject1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year AGGRO: All Games Game Reviews Online - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

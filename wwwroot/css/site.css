@@ -1,4 +1,4 @@
-/*
+﻿/*
     Dark: #131C2D
     Light: #9CAEBC, rgb(190, 213, 255)
     Gold: #E7D51D, #E2BF31
@@ -9,8 +9,7 @@
     overflow:scroll;
 }
 .th-div-full {
-    max-height:70vh; 
-    overflow:auto;
+    /* pages now scroll normally, so no inner scroll box is needed */
 }
 .th-bg-darkblue {
     background-color: rgba(19, 27, 38, .85);
@@ -58,7 +57,7 @@ th-dark {
     border: 2px solid white;
 }
 html {
-    font-size: 14px;
+    font-size: 16px; /* was 14px on phones, which read too small */
 }
 
 @media (min-width: 768px) {
@@ -75,14 +74,19 @@ a:hover {
     color:white !important;
 }
 body {
-  margin-bottom: 60px;
+  margin: 0;
 }
 .home {
     background: url(../Images/elden-ring.jpg) no-repeat center top fixed;
     background-size: cover;
+    background-color: #131C2D;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.home > .th-main {
+    flex: 1 0 auto;
 }
 .transparent-bg {
     background-color: rgba(64, 64, 64, 0.8); 
@@ -105,4 +109,455 @@ body {
     display: flex;
     align-items: center;
     height: 15px; /* Set the desired height for each checkbox item */
+}
+
+/* Shared page card for About, Contact and Privacy */
+.th-page-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 65vh;
+    padding: 1rem 0 2rem;
+}
+.th-page-card {
+    width: 100%;
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: rgba(19, 27, 38, .88);
+    border: 1px solid rgba(226, 191, 49, .35);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
+}
+@media (min-width: 992px) {
+    .th-page-card {
+        grid-template-columns: 5fr 6fr;
+        gap: 2.5rem;
+        padding: 2.5rem;
+    }
+}
+.th-page-copy {
+    padding: .25rem .5rem;
+}
+.th-eyebrow {
+    color: #E2BF31;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: .8rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+}
+.th-page-title {
+    color: #ffffff;
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: .75rem;
+    border-bottom: 3px solid #E2BF31;
+    display: inline-block;
+}
+.th-page-text {
+    color: #e4e9f2;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+}
+.th-page-media {
+    margin: 0;
+    padding: .75rem;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 14px;
+}
+.th-page-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.th-contact {
+    font-style: normal;
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 .5rem;
+}
+.th-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #e4e9f2;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+.th-contact-row i {
+    flex: 0 0 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(226, 191, 49, .15);
+    color: #E2BF31;
+    font-size: 1.4rem;
+}
+.th-contact-row a {
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
+/* ---------- Header ---------- */
+.brand-logo {
+    max-height: 64px;
+    width: auto;
+}
+@media (min-width: 768px) {
+    .brand-logo { max-height: 110px; }
+}
+@media (max-width: 575.98px) {
+    .navbar .navbar-collapse {
+        margin-top: .75rem;
+        padding: .5rem 1rem;
+        background-color: rgba(19, 27, 38, .95);
+        border-radius: 14px;
+    }
+    .navbar .nav-link {
+        padding: .6rem 0;
+    }
+}
+
+/* ---------- Panels, tables and pagination ---------- */
+.th-panel {
+    padding: 1.25rem;
+    margin: .5rem 0 1rem;
+}
+@media (min-width: 768px) {
+    .th-panel { padding: 2rem; }
+}
+.th-panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+.th-search {
+    display: flex;
+    gap: .5rem;
+    max-width: 640px;
+}
+.th-search .form-control {
+    flex: 1;
+    min-width: 0;
+}
+.th-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: rgb(190, 213, 255);
+    --bs-table-border-color: rgba(255, 255, 255, .12);
+}
+.th-table td, .th-table th {
+    padding: .75rem .6rem;
+}
+.th-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .4rem;
+}
+.th-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: .3rem .8rem;
+    white-space: nowrap;
+    font-size: .92rem;
+}
+.th-rating {
+    display: inline-block;
+    min-width: 2.5rem;
+    padding: .2rem .5rem;
+    border-radius: 999px;
+    background: rgba(226, 191, 49, .15);
+    color: #E2BF31;
+    font-weight: 700;
+    text-align: center;
+}
+.th-review-cards {
+    display: grid;
+    gap: .9rem;
+}
+.th-review-card {
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .03);
+}
+.th-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* ---------- Home search ---------- */
+.th-home-search {
+    width: 100%;
+    max-width: 900px;
+    padding: 1.25rem;
+}
+@media (min-width: 768px) {
+    .th-home-search { padding: 2rem 2.5rem; }
+}
+.th-home-form {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    text-align: left;
+}
+@media (min-width: 768px) {
+    .th-home-form {
+        flex-direction: row;
+        align-items: center;
+        gap: 1.25rem;
+    }
+}
+.th-home-label {
+    font-size: 1.35rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin: 0;
+}
+.th-home-form .form-control {
+    font-size: 1.2rem;
+    padding: .9rem 1.1rem;
+}
+
+/* ---------- Rounder corners everywhere except the home page ---------- */
+body:not(.is-home) .rounded-2 { border-radius: 12px !important; }
+body:not(.is-home) .rounded-3 { border-radius: 18px !important; }
+body:not(.is-home) .th-btn,
+body:not(.is-home) .th-btn-other,
+body:not(.is-home) .btn { border-radius: 12px; }
+body:not(.is-home) .form-control,
+body:not(.is-home) .form-select { border-radius: 12px; }
+body:not(.is-home) .card { border-radius: 18px; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 575.98px) {
+    .th-page-title { font-size: 1.75rem; }
+    .th-page-text, .th-contact-row { font-size: 1rem; }
+    .th-page-wrap { min-height: auto; padding-top: 0; }
+    .th-actions { justify-content: flex-start; }
+    .footer { text-align: center; }
+}
+
+/* ---------- Gold outline on every content box ---------- */
+.th-bg-darkblue,
+.th-review-card {
+    border: 1px solid rgba(226, 191, 49, .35);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+}
+/* Roomier padding for the older boxes that used p-2 / p-3 */
+body:not(.is-home) .th-bg-darkblue.p-2,
+body:not(.is-home) .th-bg-darkblue.p-3 {
+    padding: 1.25rem !important;
+}
+@media (min-width: 768px) {
+    body:not(.is-home) .th-bg-darkblue.p-2,
+    body:not(.is-home) .th-bg-darkblue.p-3 {
+        padding: 2rem !important;
+    }
+}
+
+/* Home search: input and button joined into one bar */
+.th-home-group {
+    flex-wrap: nowrap;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid #E2BF31;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+.th-home-group .th-home-input {
+    border: 0;
+    border-radius: 0;
+    background: rgba(255, 255, 255, .95);
+    box-shadow: none;
+}
+.th-home-group .th-home-input:focus {
+    background: #fff;
+    box-shadow: inset 0 0 0 2px rgba(226, 191, 49, .45);
+}
+.th-home-group .th-home-btn {
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    padding: 0 1.6rem;
+    min-height: 0;
+    font-size: 1.2rem;
+}
+.th-home-group .th-home-btn:hover {
+    border: 0;
+    background-color: #f0cf45;
+}
+
+/* Games table on phones: game name on top, buttons in one row underneath */
+@media (max-width: 575.98px) {
+    .th-table thead { display: none; }
+    .th-table, .th-table tbody, .th-table tr, .th-table td { display: block; width: 100%; }
+    .th-table tr { padding: .85rem 0; border-bottom: 1px solid rgba(255, 255, 255, .12); }
+    .th-table td { border: 0; padding: .15rem 0; }
+    .th-table td:first-child { font-size: 1.05rem; margin-bottom: .5rem; }
+    .th-table .th-actions { flex-wrap: nowrap; }
+    .th-table .th-actions a { flex: 1 1 auto; font-size: .85rem; padding: .3rem .5rem; }
+}
+
+/* Larger text on phones: games list and menu */
+@media (max-width: 575.98px) {
+    .th-table td:first-child { font-size: 1.2rem; }
+    .th-table .th-actions a { font-size: 1rem; min-height: 42px; }
+    .th-search .form-control { font-size: 1.05rem; }
+    .navbar .nav-link { font-size: 1.2rem; padding: .7rem 0; }
+    .navbar .navbar-nav + .navbar-nav { border-top: 1px solid rgba(255, 255, 255, .12); margin-top: .25rem; padding-top: .25rem; }
+}
+
+/* =========================================================
+   Login, register and account pages (Identity area)
+   ========================================================= */
+.th-auth-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0 2.5rem;
+}
+.th-auth-card {
+    width: 100%;
+    max-width: 480px;
+    padding: 1.75rem 1.5rem;
+    background-color: rgba(19, 27, 38, .92);
+    border: 1px solid rgba(226, 191, 49, .35);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
+    color: #e4e9f2;
+}
+@media (min-width: 576px) {
+    .th-auth-card { padding: 2.5rem; }
+}
+.th-auth-card-wide { max-width: 1000px; }
+.th-auth-title {
+    color: #fff;
+    font-size: clamp(1.75rem, 3vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: .5rem;
+}
+.th-auth-sub {
+    color: #b9c6dc;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+.th-auth-hint {
+    color: #9fb0c9;
+    font-size: .9rem;
+    margin: -.5rem 0 1rem .25rem;
+}
+.th-auth-switch {
+    text-align: center;
+    margin: 1.5rem 0 0;
+    color: #b9c6dc;
+}
+.th-auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 1rem;
+    color: #9fb0c9;
+    font-size: .9rem;
+}
+.th-auth-divider::before, .th-auth-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, .15);
+}
+
+/* Shared styling for every form in the account pages */
+.is-auth .th-auth-card h2,
+.is-auth .th-auth-card h3,
+.is-auth .th-auth-card h4 {
+    color: #fff;
+    font-weight: 700;
+}
+.is-auth .th-auth-card h3 { font-size: 1.4rem; margin-bottom: 1.25rem; }
+.is-auth .th-auth-card p,
+.is-auth .th-auth-card li,
+.is-auth .th-auth-card label:not(.form-floating > label) { color: #e4e9f2; }
+.is-auth .th-auth-card hr { border-color: rgba(226, 191, 49, .35); opacity: 1; }
+.is-auth .th-auth-card a:not(.btn):not(.nav-link) { color: #E2BF31; font-weight: 600; }
+.is-auth .form-floating { margin-bottom: 1rem; }
+.is-auth .form-floating > label { color: #5b6473; }
+.is-auth .form-control,
+.is-auth .form-select {
+    border-radius: 12px;
+    border: 2px solid transparent;
+}
+.is-auth .form-control:focus,
+.is-auth .form-select:focus {
+    border-color: #E2BF31;
+    box-shadow: 0 0 0 .2rem rgba(226, 191, 49, .25);
+}
+.is-auth .form-control:disabled { background-color: #d9dee7; }
+.is-auth .form-check-input { width: 1.2em; height: 1.2em; }
+.is-auth .form-check-input:checked { background-color: #E2BF31; border-color: #E2BF31; }
+.is-auth .text-danger { color: #ff9b8f !important; }
+.is-auth .text-danger ul { padding-left: 1.1rem; margin-bottom: 1rem; }
+.is-auth .btn { border-radius: 12px; font-weight: 700; }
+.is-auth .btn-primary {
+    background-color: #E2BF31;
+    border-color: #E2BF31;
+    color: #131C2D;
+}
+.is-auth .btn-primary:hover,
+.is-auth .btn-primary:focus {
+    background-color: #f0cf45;
+    border-color: #f0cf45;
+    color: #131C2D !important;
+}
+.is-auth .btn-danger { background-color: #c0392b; border-color: #c0392b; }
+.is-auth .btn-link { color: #E2BF31; }
+.is-auth .alert { border-radius: 12px; }
+.is-auth .table { --bs-table-bg: transparent; --bs-table-color: #e4e9f2; }
+
+/* Account (Manage) pages: side menu + content */
+.th-manage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+@media (min-width: 768px) {
+    .th-manage { grid-template-columns: 240px 1fr; gap: 2.5rem; }
+}
+.th-manage-body { min-width: 0; }
+.th-manage-body .row > [class*="col-md-6"] { width: 100%; max-width: 520px; }
+.th-pills .nav-link {
+    color: #e4e9f2;
+    border-radius: 12px;
+    padding: .7rem 1rem;
+    margin-bottom: .35rem;
+    font-weight: 600;
+}
+.th-pills .nav-link:hover { background: rgba(255, 255, 255, .06); }
+.th-pills .nav-link.active {
+    background-color: #E2BF31;
+    color: #131C2D;
+}
+@media (max-width: 767.98px) {
+    .th-pills { flex-direction: row !important; flex-wrap: wrap; gap: .4rem; }
+    .th-pills .nav-link { margin: 0; padding: .5rem .85rem; font-size: .95rem; }
 }

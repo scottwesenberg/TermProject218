@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace TermProject1.Data
+namespace AllGamesGameReviews.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

@@ -1,17 +1,18 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Home";
+    ViewData["BodyClass"] = "is-home";
+}
 <canvas id="goldFlakes"></canvas>
 
-<div class="search-container d-flex justify-content-center align-items-center text-center" style="min-height: 80vh; position: relative; z-index: 10;">
-    <div class="th-bg-darkblue rounded-15 p-3 mx-0" style="width: 80%;">
-        <form method="post" asp-controller="Game" asp-action="IndexWithSearch" class="d-flex align-items-center">
-            <h5 class="col-sm-3 mx-0 text-center me-2 th-light">Search Games</h5>
-            <div class="input-group">
-                <input type="search" class="form-control" style="opacity:.8;" name="search" placeholder="Search games for reviews...">
-                <div class="input-group-append">
-                    <button type="submit" class="th-btn rounded-2 " style="width:10vw; opacity:.8;">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
+<div class="search-container d-flex justify-content-center align-items-center text-center" style="min-height: 70vh; position: relative; z-index: 10;">
+    <div class="th-bg-darkblue rounded-15 th-home-search">
+        <form method="post" asp-controller="Game" asp-action="IndexWithSearch" class="th-home-form">
+            <label for="homeSearch" class="th-light th-home-label">Search Games</label>
+            <div class="input-group input-group-lg th-home-group">
+                <input id="homeSearch" type="search" class="form-control th-home-input" name="search" placeholder="Search games for reviews...">
+                <button type="submit" class="th-btn th-home-btn" aria-label="Search">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
         </form>
     </div>

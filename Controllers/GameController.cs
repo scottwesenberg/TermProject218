@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TermProject1.Models;
+using AllGamesGameReviews.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Diagnostics;
 
 
 
 
-namespace TermProject1.Controllers
+namespace AllGamesGameReviews.Controllers
 {
     
     public class GameController : Controller
@@ -30,14 +30,21 @@ namespace TermProject1.Controllers
         // GET: Game
         [Authorize(Roles = "Administrator,Manager,User")]
         [AllowAnonymous]
-        public IActionResult Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string search, int? pageNumber)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["CreatorSortParam"] = sortOrder == "creator" ? "creator_desc" : "creator";
             ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewBag.SearchQuery = search;
 
             var games = from g in _context.Games
                         select g;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                games = games.Where(g => g.Name.Contains(search));
+            }
 
             switch (sortOrder)
             {
@@ -60,21 +67,18 @@ namespace TermProject1.Controllers
                     games = games.OrderBy(s => s.Name);
                     break;
             }
-            return View(games);
+
+            int pageSize = 20;
+            return View(await PaginatedList<Game>.CreateAsync(games.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+
+        // Search form on the home and games pages posts here, then shows page 1 of the results
         [HttpPost]
         [Authorize(Roles = "Administrator,Manager,User")]
         [AllowAnonymous]
         public IActionResult IndexWithSearch(string search)
         {
-            // Query all games or filter based on the search query
-            var games = string.IsNullOrEmpty(search)
-                ? _context.Games.ToList()
-                : _context.Games.Where(g => g.Name.Contains(search)).ToList();
-
-            ViewBag.SearchQuery = search; // Pass the search query to the view
-
-            return View("Index",games);
+            return RedirectToAction(nameof(Index), new { search });
         }
 
 

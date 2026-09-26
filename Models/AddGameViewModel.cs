@@ -1,5 +1,5 @@
 ﻿#nullable disable
-namespace TermProject1.Models
+namespace AllGamesGameReviews.Models
 {
     public class AddGameViewModel
     {
