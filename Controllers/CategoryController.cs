@@ -158,6 +158,8 @@ namespace AllGamesGameReviews.Controllers
             var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
+                // Unlink the category from its games first, or the database refuses the delete
+                _context.GameCategories.RemoveRange(_context.GameCategories.Where(gc => gc.CategoryId == id));
                 _context.Categories.Remove(category);
             }
             

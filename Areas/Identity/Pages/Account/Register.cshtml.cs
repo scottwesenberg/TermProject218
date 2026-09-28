@@ -54,6 +54,11 @@ namespace AllGamesGameReviews.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [RegularExpression(@"^[A-Za-z0-9_.-]{3,20}$", ErrorMessage = "Usernames are 3 to 20 characters: letters, numbers, dots, dashes or underscores.")]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -86,7 +91,7 @@ namespace AllGamesGameReviews.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new IdentityUser { UserName = Input.Username.Trim(), Email = Input.Email.Trim() };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

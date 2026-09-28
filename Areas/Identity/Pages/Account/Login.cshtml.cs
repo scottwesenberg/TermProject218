@@ -65,7 +65,7 @@ namespace AllGamesGameReviews.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [EmailAddress]
+            [Display(Name = "Email or username")]
             public string Email { get; set; }
 
             /// <summary>
@@ -111,7 +111,18 @@ namespace AllGamesGameReviews.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                // Accept either an email address or a username
+                var login = Input.Email.Trim();
+                var userName = login;
+                if (login.Contains('@'))
+                {
+                    var byEmail = await _signInManager.UserManager.FindByEmailAsync(login);
+                    if (byEmail != null)
+                    {
+                        userName = byEmail.UserName;
+                    }
+                }
+                var result = await _signInManager.PasswordSignInAsync(userName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

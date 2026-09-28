@@ -2,82 +2,73 @@
 
 @{
     ViewData["Title"] = "Add Game";
+    var selected = Model.CategoryIds ?? new List<string>();
 }
 
-<h2>Add A New Game</h2>
+<div class="th-bg-darkblue rounded-3 th-panel">
+    <div class="th-form">
+        <p class="th-eyebrow mb-1">Admin</p>
+        <h1 class="th-light mb-4">Add a New Game</h1>
 
-
-<hr />
-<div class="row mx-0 th-bg-darkblue rounded-2 p-2">
-    <div class="col-md-8 ">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="Game.Name" class="control-label"></label>
-                <input asp-for="Game.Name" class="form-control" />
-                <span asp-validation-for="Game.Name" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Game.Creator" class="control-label"></label>
-                <input asp-for="Game.Creator" class="form-control" />
-                <span asp-validation-for="Game.Creator" class="text-danger"></span>
-            </div>
-            <div class="form-group categories-container">
-                <label>Game Categories (Select all that apply)</label>
-                <div class="checkbox-group mt-5">
-                    @foreach (var category in Model.Categories)
-                    {
-                        <div class="category-item">
-                            <input type="checkbox" name="CategoryIds" value="@category.Id" />
-                            <label>@category.Name</label>
-                        </div>
-                    }
+            <div class="th-form-grid">
+                <div class="form-group">
+                    <label asp-for="Game.Name" class="control-label"></label>
+                    <input asp-for="Game.Name" class="form-control" placeholder="e.g. Hollow Knight" />
+                    <span asp-validation-for="Game.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Game.Creator" class="control-label"></label>
+                    <input asp-for="Game.Creator" class="form-control" placeholder="e.g. Team Cherry" />
+                    <span asp-validation-for="Game.Creator" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Game.Year" class="control-label">Release Year</label>
+                    <input asp-for="Game.Year" type="number" min="1962" max="2050" class="form-control" placeholder="2024" />
+                    <span asp-validation-for="Game.Year" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Game.IGNRating" class="control-label"></label>
+                    <input asp-for="Game.IGNRating" type="number" min="1" max="10" step="0.1" class="form-control" placeholder="1 to 10" />
+                    <span asp-validation-for="Game.IGNRating" class="text-danger"></span>
                 </div>
             </div>
 
-
-
-
-@*             <div class="form-group">
-                <label asp-for="Categories" class="control-label"></label>
-                <select asp-for="Categories" asp-items="ViewBag.CategoryList" class="form-control" multiple>
-                </select>
-                <span asp-validation-for="Categories" class="text-danger"></span>
-            </div>  *@
-
-            <div class="form-group">
-                <label asp-for="Game.Year" class="control-label"></label>
-                <input asp-for="Game.Year" class="form-control" />
-                <span asp-validation-for="Game.Year" class="text-danger"></span>
-            </div>
+            <fieldset class="form-group th-chip-group">
+                <legend class="control-label">Categories <span class="th-hint">(pick all that apply)</span></legend>
+                <div class="th-chips">
+                    @foreach (var category in Model.Categories)
+                    {
+                        var id = "cat-" + category.Id;
+                        <input type="checkbox" class="btn-check" name="CategoryIds" id="@id" value="@category.Id" checked="@selected.Contains(category.Id)" />
+                        <label class="th-chip" for="@id">@category.Name</label>
+                    }
+                </div>
+            </fieldset>
 
             <div class="form-group">
-                <label asp-for="Game.IGNRating" class="control-label"></label>
-                <input asp-for="Game.IGNRating" type="number" class="form-control" min="0" max="10" step="1" />
-                <span asp-validation-for="Game.IGNRating" class="text-danger"></span>
+                <label for="coverImage" class="control-label">Cover Image <span class="th-hint">(optional)</span></label>
+                <input type="file" id="coverImage" name="coverImage" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                <small class="th-hint">JPG, PNG or WebP, up to 2 MB. Wide images (about 460 x 215) look best; tall box art works too.</small>
+                <span class="text-danger d-block">@Html.ValidationMessage("coverImage")</span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Game.Description" class="control-label"></label>
-                <textarea asp-for="Game.Description" class="form-control" rows="4"></textarea>
+                <textarea asp-for="Game.Description" class="form-control" rows="5" placeholder="A short summary of the game"></textarea>
                 <span asp-validation-for="Game.Description" class="text-danger"></span>
             </div>
-            <div>
-                <input type="submit" value="Create" class="th-btn mt-2 rounded-3" /> 
-                <input type="reset" value="Reset" class="th-btn-other mt-2 rounded-3" />
-                <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Game/Index'">
-                    Back to List
-                </button>
+
+            <div class="th-form-actions">
+                <button type="submit" class="th-btn">Add Game</button>
+                <button type="reset" class="th-btn-other">Reset</button>
+                <a class="th-btn-other text-decoration-none" asp-action="Index">Back to Games</a>
             </div>
         </form>
     </div>
-
-    
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

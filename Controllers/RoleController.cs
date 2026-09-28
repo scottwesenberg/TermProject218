@@ -15,22 +15,28 @@ namespace AllGamesGameReviews.Controllers
             this.roleManager = roleManager;
         }
 
-        [Authorize(Policy ="readpolicy")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Index()
         {
             var roles = roleManager.Roles.ToList();
             return View(roles);
         }
-        [Authorize(Policy = "writepolicy")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View(new IdentityRole());
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create(IdentityRole role)
         {
-            await roleManager.CreateAsync(role);
+            if (string.IsNullOrWhiteSpace(role?.Name))
+            {
+                return View(role ?? new IdentityRole());
+            }
+            await roleManager.CreateAsync(new IdentityRole(role.Name.Trim()));
             return RedirectToAction("Index");
         }
     }

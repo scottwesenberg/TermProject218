@@ -55,6 +55,11 @@ namespace AllGamesGameReviews.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required]
+            [RegularExpression(@"^[A-Za-z0-9_.-]{3,20}$", ErrorMessage = "Usernames are 3 to 20 characters: letters, numbers, dots, dashes or underscores.")]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -69,6 +74,8 @@ namespace AllGamesGameReviews.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                // Older accounts used their email as the username; start them with a blank box
+                Username = userName != null && userName.Contains('@') ? "" : userName,
                 PhoneNumber = phoneNumber
             };
         }
@@ -97,6 +104,23 @@ namespace AllGamesGameReviews.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+
+            var currentName = await _userManager.GetUserNameAsync(user);
+            var newName = Input.Username.Trim();
+            if (!string.Equals(newName, currentName, StringComparison.Ordinal))
+            {
+                var setNameResult = await _userManager.SetUserNameAsync(user, newName);
+                if (!setNameResult.Succeeded)
+                {
+                    foreach (var error in setNameResult.Errors)
+                    {
+                        ModelState.AddModelError("Input.Username", error.Description);
+                    }
+                    await LoadAsync(user);
+                    Input.Username = newName;
+                    return Page();
+                }
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

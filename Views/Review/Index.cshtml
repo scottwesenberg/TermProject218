@@ -1,7 +1,8 @@
 ﻿@using AllGamesGameReviews.Models;
-@model PaginatedList<AllGamesGameReviews.Models.Review>
+@model PaginatedList<AllGamesGameReviews.Models.ReviewGroupViewModel>
 @{
     ViewData["Title"] = "Reviews";
+    bool singleGame = ViewBag.GameId != null;
 }
 <div class="th-bg-darkblue rounded-3 th-panel">
     <div class="th-panel-head">
@@ -12,62 +13,60 @@
                 <p class="th-gold fw-semibold mb-0">@ViewBag.Game</p>
             }
         </div>
-        @if (ViewBag.Game != "All Reviews")
+        @if (singleGame)
         {
-            <div class="d-flex flex-wrap gap-2">
-                @if (ViewBag.GameId != null)
-                {
-                    <a class="th-btn rounded-3 px-3 py-2 text-decoration-none" asp-action="Create" asp-route-gameId="@ViewBag.GameId">Write a Review</a>
-                }
-                <a class="th-btn-other rounded-3 px-3 py-2 text-decoration-none" asp-controller="Review" asp-action="Index">View all reviews</a>
-            </div>
+            <a class="th-btn-other rounded-3 px-3 py-2 text-decoration-none" asp-controller="Review" asp-action="Index">View all reviews</a>
         }
     </div>
 
-    @if (!Model.Any())
+    @if (!Model.Any() || (singleGame && Model.All(g => g.ReviewCount == 0)))
     {
         <p class="th-light">No reviews yet. Be the first to write one!</p>
     }
 
-    @* Table on tablets and desktops *@
-    <div class="table-responsive d-none d-md-block">
-        <table class="table th-light th-table align-middle mb-0">
-            <thead>
-                <tr>
-                    <th>Game</th>
-                    <th>Rating</th>
-                    <th>Game Review</th>
-                    <th><span class="visually-hidden">Actions</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="fw-semibold text-nowrap">@Html.DisplayFor(modelItem => item.Game.Name)</td>
-                        <td><span class="th-rating">@Html.DisplayFor(modelItem => item.GameRating)</span></td>
-                        <td>@Html.DisplayFor(modelItem => item.GameReview)</td>
-                        <td class="text-end">
-                            <a class="th-btn rounded-2 px-4 py-1 d-inline-block text-decoration-none" asp-action="Details" asp-route-id="@item.ReviewId">View</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-    @* Cards on phones *@
-    <div class="d-md-none th-review-cards">
-        @foreach (var item in Model)
+    <div class="th-review-groups">
+        @foreach (var group in Model)
         {
-            <article class="th-review-card">
-                <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
-                    <h2 class="h6 th-light fw-semibold mb-0">@item.Game.Name</h2>
-                    <span class="th-rating">@item.GameRating</span>
+            var game = group.Game;
+            <section class="th-review-group" aria-labelledby="game-@game.Id">
+                <div class="th-review-side">
+                    <a asp-controller="Game" asp-action="Details" asp-route-id="@game.Id" tabindex="-1" aria-hidden="true">
+                        <partial name="_GameCover" model="game" />
+                    </a>
+                    <h2 id="game-@game.Id" class="th-game-title mt-3">
+                        <a asp-controller="Game" asp-action="Details" asp-route-id="@game.Id">@game.Name</a>
+                    </h2>
+                    <div class="th-game-stats">
+                        @if (group.AverageRating.HasValue)
+                        {
+                            <span class="th-rating" title="Average player rating">&#9733; @group.AverageRating.Value.ToString("0.0")</span>
+                        }
+                        <span class="th-review-count">@group.ReviewCount @(group.ReviewCount == 1 ? "review" : "reviews")</span>
+                    </div>
+                    <div class="th-actions th-card-actions mt-3">
+                        <a class="th-btn rounded-2 text-decoration-none" asp-action="Create" asp-route-gameId="@game.Id">Write a Review</a>
+                        @if (!singleGame && group.ReviewCount > group.Reviews.Count)
+                        {
+                            <a class="th-btn-other rounded-2 text-decoration-none" asp-action="Index" asp-route-gameId="@game.Id">All @group.ReviewCount reviews</a>
+                        }
+                    </div>
                 </div>
-                <p class="th-light mb-3">@item.GameReview</p>
-                <a class="th-btn rounded-2 px-4 py-1 d-inline-block text-decoration-none" asp-action="Details" asp-route-id="@item.ReviewId">View</a>
-            </article>
+                <div class="th-review-list">
+                    @foreach (var review in group.Reviews)
+                    {
+                        <article class="th-review-card">
+                            <div class="d-flex justify-content-between align-items-center gap-3 mb-2">
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <span class="th-rating">&#9733; @review.GameRating</span>
+                                    <span class="th-author"><i class="fa fa-user-circle" aria-hidden="true"></i> @review.AuthorName</span>
+                                </div>
+                                <a class="th-review-link" asp-action="Details" asp-route-id="@review.ReviewId">View</a>
+                            </div>
+                            <p class="th-light mb-0">@review.GameReview</p>
+                        </article>
+                    }
+                </div>
+            </section>
         }
     </div>
 

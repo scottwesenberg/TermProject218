@@ -4,45 +4,31 @@
     ViewData["Title"] = "Review Details";
 }
 
+<div class="th-bg-darkblue rounded-3 th-panel">
+    <div class="th-form">
+        <p class="th-eyebrow mb-1">Review</p>
+        <div class="th-confirm-card">
+            <div class="th-confirm-cover">
+                <a asp-controller="Game" asp-action="Details" asp-route-id="@Model.GameId"><partial name="_GameCover" model="Model.Game" /></a>
+            </div>
+            <div>
+                <h1 class="th-game-title mb-2">
+                    <a asp-controller="Game" asp-action="Details" asp-route-id="@Model.GameId">@Model.Game?.Name</a>
+                </h1>
+                <span class="th-rating">&#9733; @Model.GameRating</span>
+                <p class="th-author mt-2 mb-0"><i class="fa fa-user-circle" aria-hidden="true"></i> Reviewed by @Model.AuthorName</p>
+            </div>
+        </div>
 
+        <p class="th-page-text th-review-text">@Model.GameReview</p>
 
-<div class="th-bg-darkblue p-2 rounded-2">
-    <h3>Review</h3>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Game)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Game.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GameRating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GameRating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GameReview)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GameReview)
-        </dd>
-    </dl>
-
-    <div class="">
-        @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
-        {
-            <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.ReviewId })';">
-                Edit
-            </button>
-            <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.ReviewId })';">
-                Delete
-            </button>
-        }
-
-        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Review/Index'">
-            Back to Reviews
-        </button>
+        <div class="th-form-actions">
+            @if (ViewBag.CanModify == true)
+            {
+                <a class="th-btn text-decoration-none" asp-action="Edit" asp-route-id="@Model.ReviewId">Edit</a>
+                <a class="th-btn-other th-btn-danger-outline text-decoration-none" asp-action="Delete" asp-route-id="@Model.ReviewId">Delete</a>
+            }
+            <a class="th-btn-other text-decoration-none" asp-action="Index" asp-route-gameId="@Model.GameId">More reviews for this game</a>
+        </div>
     </div>
 </div>

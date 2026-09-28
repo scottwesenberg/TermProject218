@@ -29,6 +29,11 @@ namespace AllGamesGameReviews.Models
         [StringLength(maximumLength:3000)]
         public string Description { get; set; }
 
+        // Web path of the cover image file, e.g. /images/games/hades.jpg
+        [Display(Name = "Cover Image")]
+        [StringLength(500)]
+        public string? ImageUrl { get; set; }
+
         public string Slug =>
             Name?.Replace(' ', '-').ToLower() + '-' + Year.ToString();
 

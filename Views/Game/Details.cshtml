@@ -2,79 +2,85 @@
 
 @{
     ViewData["Title"] = Model?.Name ?? "Game Details";
+    int reviewCount = ViewBag.ReviewCount ?? 0;
+    double? average = ViewBag.AverageRating;
+    var recent = (List<AllGamesGameReviews.Models.Review>)ViewBag.RecentReviews;
+    int? myReviewId = ViewBag.MyReviewId;
+    bool canManage = User.IsInRole("Administrator") || User.IsInRole("Manager");
 }
 
-
-
-<div class="th-bg-darkblue rounded-2 p-2 th-div-full"  >
-    <h2 class="th-light">Game Details</h2>
-
-    <hr />
-    <button class="th-btn rounded-2" onclick="window.location.href = '@Url.Action("Create", "Review", new { gameId = Model.Id })';">
-        Leave Review
-    </button>
-    <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Review/Index?gameId=@Model?.Id'">
-        View Reviews
-    </button>
-
-    <dl class="row th-light pt-3" style="width:99%;">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Creator)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Creator)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GameCategories)
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var category in Model.GameCategories)
+<div class="th-bg-darkblue rounded-3 th-panel">
+    <div class="th-detail-head">
+        <div class="th-detail-cover">
+            <partial name="_GameCover" model="Model" />
+        </div>
+        <div>
+            <p class="th-eyebrow mb-1">@Model.Creator &middot; @Model.Year</p>
+            <h1 class="th-light mb-2">@Model.Name</h1>
+            <div class="th-game-stats">
+                @if (average.HasValue)
+                {
+                    <span class="th-rating" title="Average player rating">&#9733; @average.Value.ToString("0.0")</span>
+                }
+                else
+                {
+                    <span class="th-rating th-rating-empty">No ratings yet</span>
+                }
+                <span class="th-review-count">@reviewCount @(reviewCount == 1 ? "player review" : "player reviews")</span>
+                <span class="th-review-count">IGN @Model.IGNRating</span>
+            </div>
+            @if (Model.GameCategories.Any())
             {
-                <span>@category.Name</span>
-                <br />
+                <div class="th-chips th-chips-static mt-2">
+                    @foreach (var category in Model.GameCategories)
+                    {
+                        <span class="th-chip">@category.Name</span>
+                    }
+                </div>
             }
-        </dd>
-
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IGNRating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IGNRating)
-        </dd>
-        
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-
-    <div class="">
-        @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
-        {
-            <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Edit", new { id = Model?.Id })';">
-                Edit
-            </button>
-            <button class="th-btn rounded-2 p-1 mt-2" onclick="window.location.href = '@Url.Action("Delete", new { id = Model?.Id })';">
-                Delete
-            </button>
-        }
-
-        <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2"  onclick="window.location.href= '/Game/Index'">
-            Back to Games
-        </button>
+        </div>
     </div>
+
+    <p class="th-page-text mt-4 mb-0">@Model.Description</p>
+
+    <div class="th-form-actions">
+        @if (myReviewId != null)
+        {
+            <a class="th-btn text-decoration-none" asp-controller="Review" asp-action="Edit" asp-route-id="@myReviewId">Edit My Review</a>
+        }
+        else
+        {
+            <a class="th-btn text-decoration-none" asp-controller="Review" asp-action="Create" asp-route-gameId="@Model.Id">Write a Review</a>
+        }
+        <a class="th-btn-other text-decoration-none" asp-controller="Review" asp-action="Index" asp-route-gameId="@Model.Id">All Reviews</a>
+        @if (canManage)
+        {
+            <a class="th-btn-other text-decoration-none" asp-action="Edit" asp-route-id="@Model.Id">Edit Game</a>
+            <a class="th-btn-other th-btn-danger-outline text-decoration-none" asp-action="Delete" asp-route-id="@Model.Id">Delete Game</a>
+        }
+    </div>
+
+    <h2 class="th-light h4 mt-5 mb-3">Latest reviews</h2>
+    @if (recent == null || !recent.Any())
+    {
+        <p class="th-light">No reviews yet. Be the first!</p>
+    }
+    else
+    {
+        <div class="th-review-list">
+            @foreach (var review in recent)
+            {
+                <article class="th-review-card">
+                    <div class="d-flex justify-content-between align-items-center gap-3 mb-2">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="th-rating">&#9733; @review.GameRating</span>
+                            <span class="th-author"><i class="fa fa-user-circle" aria-hidden="true"></i> @review.AuthorName</span>
+                        </div>
+                        <a class="th-review-link" asp-controller="Review" asp-action="Details" asp-route-id="@review.ReviewId">View</a>
+                    </div>
+                    <p class="th-light mb-0">@review.GameReview</p>
+                </article>
+            }
+        </div>
+    }
 </div>
