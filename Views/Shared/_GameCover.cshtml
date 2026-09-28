@@ -1,0 +1,19 @@
+﻿@model AllGamesGameReviews.Models.Game
+@*
+    Game cover art. Wide images fill the frame; tall box art is shown whole over a
+    blurred copy of itself. If a game has no image (or it fails to load), a styled title card shows instead.
+*@
+@{
+    var hue = ((Model?.Id ?? 0) * 47) % 360;
+    var hasImage = !string.IsNullOrWhiteSpace(Model?.ImageUrl);
+}
+<div class="th-cover" style="--hue:@hue">
+    <div class="th-cover-fallback" aria-hidden="true">
+        <span>@Model?.Name</span>
+    </div>
+    @if (hasImage)
+    {
+        <div class="th-cover-backdrop" style="background-image:url('@Model!.ImageUrl')" aria-hidden="true"></div>
+        <img src="@Model.ImageUrl" alt="@Model.Name cover art" loading="lazy" onerror="this.parentElement.querySelector('.th-cover-backdrop')?.remove(); this.remove()" />
+    }
+</div>

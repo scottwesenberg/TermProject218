@@ -561,3 +561,410 @@ body:not(.is-home) .th-bg-darkblue.p-3 {
     .th-pills { flex-direction: row !important; flex-wrap: wrap; gap: .4rem; }
     .th-pills .nav-link { margin: 0; padding: .5rem .85rem; font-size: .95rem; }
 }
+
+/* =========================================================
+   Game covers, game tiles and grouped reviews
+   ========================================================= */
+.th-cover {
+    position: relative;
+    aspect-ratio: 460 / 215;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, hsl(var(--hue), 55%, 28%), hsl(calc(var(--hue) + 40), 60%, 14%));
+}
+.th-cover img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* show the whole image: wide art fills, tall box art sits centered */
+    display: block;
+}
+.th-cover-backdrop {
+    position: absolute;
+    inset: -20px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(18px) brightness(.55);
+    transform: scale(1.1);
+}
+.th-cover-fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    text-align: center;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(226, 191, 49, .25), transparent 50%),
+        radial-gradient(circle at 85% 90%, rgba(255, 255, 255, .08), transparent 45%);
+}
+.th-cover-fallback span {
+    color: #fff;
+    font-weight: 800;
+    font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .6);
+}
+
+/* Toolbar: search + sort */
+.th-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+}
+.th-toolbar .th-search { flex: 1 1 320px; }
+.th-sort { display: flex; align-items: center; gap: .6rem; }
+.th-sort label { white-space: nowrap; margin: 0; }
+.th-sort .form-select { min-width: 190px; }
+
+/* Game tiles: 3 per row, 2 on small tablets, 1 on phones */
+.th-game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+@media (max-width: 767.98px) { .th-game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 575.98px) { .th-game-grid { grid-template-columns: 1fr; } }
+.th-game-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(226, 191, 49, .35);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.th-game-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(226, 191, 49, .8);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, .45);
+}
+.th-game-card .th-cover { border-radius: 0; }
+.th-game-body {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    padding: 1rem 1rem 1.1rem;
+    flex: 1;
+}
+.th-game-title { font-size: 1.15rem; font-weight: 700; margin: 0; line-height: 1.25; }
+.th-game-title a { color: #fff; text-decoration: none; }
+.th-game-title a:hover { color: #E2BF31 !important; }
+.th-game-meta { color: #9fb0c9; font-size: .9rem; margin: 0; }
+.th-game-stats { display: flex; align-items: center; gap: .75rem; margin: .35rem 0 .6rem; flex-wrap: wrap; }
+.th-review-count { color: #c7d2e4; font-size: .95rem; }
+.th-rating-empty { background: rgba(255, 255, 255, .08); color: #9fb0c9; font-weight: 600; }
+/* Buttons on a tile: Game + Reviews side by side, Review Game full width underneath */
+.th-card-actions {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .45rem;
+}
+.th-card-actions a { width: 100%; font-size: .95rem; padding: .4rem .5rem; }
+.th-card-actions a.th-btn { grid-column: 1 / -1; }
+
+/* Reviews grouped by game: cover on the left, reviews on the right */
+.th-review-groups { display: grid; gap: 1.25rem; }
+.th-review-group {
+    display: grid;
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid rgba(226, 191, 49, .35);
+    border-radius: 18px;
+}
+@media (max-width: 767.98px) {
+    .th-review-group { grid-template-columns: 1fr; gap: 1rem; padding: 1rem; }
+}
+.th-review-list { display: grid; gap: .75rem; align-content: start; }
+.th-review-link { color: #E2BF31; font-weight: 600; font-size: .9rem; }
+
+/* Game details header */
+.th-detail-head {
+    display: grid;
+    grid-template-columns: minmax(220px, 360px) 1fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+@media (max-width: 767.98px) { .th-detail-head { grid-template-columns: 1fr; } }
+
+.th-review-side .th-card-actions { grid-template-columns: 1fr; }
+
+/* =========================================================
+   Write / edit review form
+   ========================================================= */
+.th-review-form {
+    max-width: 720px;
+    margin: 0 auto;
+}
+.th-review-form .control-label,
+.th-rating-picker legend {
+    color: #e4e9f2;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: .5rem;
+}
+.th-review-form textarea { border-radius: 12px; }
+
+.th-rating-picker { border: 0; padding: 0; margin: 0; }
+.th-rating-options {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: .45rem;
+}
+@media (max-width: 767.98px) { .th-rating-options { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.th-rating-option {
+    display: grid;
+    place-items: center;
+    height: 44px;
+    border-radius: 999px;
+    border: 2px solid rgba(226, 191, 49, .55);
+    color: #e4e9f2;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    transition: background .15s, color .15s, border-color .15s, transform .15s;
+}
+.th-rating-option:hover { border-color: #E2BF31; transform: translateY(-1px); }
+.btn-check:checked + .th-rating-option {
+    background: #E2BF31;
+    border-color: #E2BF31;
+    color: #131C2D;
+}
+.btn-check:focus-visible + .th-rating-option { outline: 3px solid rgba(226, 191, 49, .5); outline-offset: 2px; }
+
+/* Matching buttons: same height, shape and spacing */
+.th-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-top: 1.25rem;
+}
+.th-form-actions > .th-btn,
+.th-form-actions > .th-btn-other {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    height: 46px;
+    padding: 0 1.25rem;
+    border-radius: 12px !important;
+    font-size: 1rem;
+    font-weight: 700;
+}
+@media (max-width: 575.98px) {
+    .th-form-actions > * { flex: 1 1 100%; }
+}
+
+/* =========================================================
+   Admin and detail forms
+   ========================================================= */
+.th-form { max-width: 820px; margin: 0 auto; }
+.th-form-narrow { max-width: 560px; }
+.th-form .form-group { margin-bottom: 1.1rem; }
+.th-form .control-label,
+.th-form legend {
+    display: block;
+    color: #e4e9f2;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: .45rem;
+}
+.th-form .form-control, .th-form .form-select { border-radius: 12px; padding: .65rem .85rem; }
+.th-form textarea.form-control { min-height: 120px; }
+.th-hint { color: #9fb0c9; font-size: .9rem; font-weight: 400; }
+.th-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.25rem;
+}
+@media (max-width: 575.98px) { .th-form-grid { grid-template-columns: 1fr; } }
+.th-eyebrow-danger { color: #ff8a7a !important; }
+
+/* Category chips (checkboxes that look like pills) */
+.th-chip-group { border: 0; padding: 0; }
+.th-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.th-chip {
+    padding: .45rem 1rem;
+    border-radius: 999px;
+    border: 2px solid rgba(226, 191, 49, .55);
+    color: #e4e9f2;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: background .15s, color .15s, border-color .15s;
+}
+.th-chip:hover { border-color: #E2BF31; }
+.btn-check:checked + .th-chip { background: #E2BF31; border-color: #E2BF31; color: #131C2D; }
+.btn-check:focus-visible + .th-chip { outline: 3px solid rgba(226, 191, 49, .5); outline-offset: 2px; }
+
+/* Cover preview next to the upload on Edit Game */
+.th-cover-edit {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+@media (max-width: 575.98px) { .th-cover-edit { grid-template-columns: 1fr; } }
+
+/* Summary card on delete and review details pages */
+.th-confirm-card {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(226, 191, 49, .35);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .03);
+}
+@media (max-width: 575.98px) { .th-confirm-card { grid-template-columns: 1fr; } }
+.th-review-text { white-space: pre-line; margin: .5rem 0 0; }
+
+/* Danger buttons */
+.th-btn.th-btn-danger { background: #c0392b; border-color: #c0392b; color: #fff; }
+.th-btn.th-btn-danger:hover { background: #d9463a; border-color: #fff; color: #fff !important; }
+.th-btn-other.th-btn-danger-outline { border-color: #e06a5d; color: #ff9b8f; }
+.th-btn-other.th-btn-danger-outline:hover { background: #c0392b; border-color: #c0392b; color: #fff !important; }
+
+/* Admin lists (categories, roles) */
+.th-admin-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+.th-admin-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: .8rem 1rem;
+    border: 1px solid rgba(226, 191, 49, .3);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .03);
+}
+.th-admin-name { color: #fff; font-weight: 700; font-size: 1.05rem; margin-right: .6rem; }
+.th-code {
+    display: inline-block;
+    padding: .1rem .5rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, .08);
+    color: #c7d2e4;
+    font-family: Consolas, monospace;
+    font-size: .85rem;
+}
+.th-admin-actions { display: flex; gap: .5rem; }
+.th-admin-actions a { padding: .35rem .9rem; display: inline-flex; align-items: center; }
+
+.th-author { color: #c7d2e4; font-size: .9rem; font-weight: 600; }
+.th-author i { color: #E2BF31; }
+
+/* My reviews (account page) */
+.th-my-reviews { display: grid; gap: .9rem; }
+.th-my-review {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1rem;
+    padding: .9rem;
+    border: 1px solid rgba(226, 191, 49, .3);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .03);
+}
+@media (max-width: 575.98px) { .th-my-review { grid-template-columns: 1fr; } }
+.is-auth .th-auth-card a.th-my-review-title { color: #fff; font-weight: 700; font-size: 1.05rem; text-decoration: none; }
+.is-auth .th-auth-card a.th-my-review-title:hover { color: #E2BF31 !important; }
+.is-auth .th-auth-card .btn-outline-light { border-radius: 10px; }
+
+/* Two-factor setup QR code: white frame so phones can scan it on the dark card */
+.th-qr { display: inline-block; padding: 12px; background: #fff; border-radius: 12px; }
+.th-qr img, .th-qr canvas { display: block; }
+.is-auth kbd { background: #E2BF31; color: #131C2D; font-weight: 700; }
+
+/* Alert boxes on account pages (delete account, recovery codes, 2FA, profile notice):
+   the light-text rule for the dark card was making their text unreadable */
+.is-auth .th-auth-card .alert,
+.is-auth .th-auth-card .alert p,
+.is-auth .th-auth-card .alert li,
+.is-auth .th-auth-card .alert strong,
+.is-auth .th-auth-card .alert span {
+    color: #111 !important;
+}
+.is-auth .th-auth-card .alert a:not(.btn) { color: #111 !important; text-decoration: underline; }
+
+/* =========================================================
+   Form errors on every page: red, easy-to-spot bubbles
+   ========================================================= */
+/* Summary box at the top of a form (e.g. "Email is already taken") */
+.validation-summary-errors,
+.is-auth .th-auth-card .validation-summary-errors {
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+    background: #fdecea;
+    border: 1px solid #e0685b;
+    border-left: 6px solid #c0392b;
+    border-radius: 14px;
+    padding: .8rem 1rem;
+    margin-bottom: 1rem;
+    color: #7a1b12 !important;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(192, 57, 43, .25);
+}
+.validation-summary-errors::before {
+    content: "!";
+    flex: 0 0 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #c0392b;
+    color: #fff;
+    font-weight: 800;
+    font-size: .9rem;
+}
+.validation-summary-errors ul { margin: 0; padding-left: 1rem; }
+.validation-summary-errors li,
+.is-auth .th-auth-card .validation-summary-errors li { color: #7a1b12 !important; }
+.validation-summary-errors ul:has(li:only-child) { list-style: none; padding-left: 0; }
+
+/* Message under a single field (e.g. "Please enter a valid email") */
+span.field-validation-error,
+.is-auth span.field-validation-error {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    margin-top: .45rem;
+    padding: .3rem .8rem;
+    background: #c0392b;
+    color: #fff !important;
+    border-radius: 999px;
+    font-size: .88rem;
+    font-weight: 600;
+    line-height: 1.3;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, .35);
+}
+span.field-validation-error::before { content: "\26A0"; }
+span.field-validation-error:empty { display: none; }
+
+/* Highlight the field that has the problem */
+.input-validation-error,
+.is-auth .form-control.input-validation-error {
+    border: 2px solid #e0685b !important;
+    box-shadow: 0 0 0 .2rem rgba(224, 104, 91, .25) !important;
+}
+
+.th-chips-static .th-chip { cursor: default; padding: .25rem .8rem; font-size: .88rem; }
+.th-chips-static .th-chip:hover { border-color: rgba(226, 191, 49, .55); }
+.th-notice {
+    background: rgba(226, 191, 49, .15);
+    border: 1px solid rgba(226, 191, 49, .6);
+    color: #f3e3a0;
+    border-radius: 12px;
+    padding: .7rem 1rem;
+    font-weight: 600;
+}

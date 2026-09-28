@@ -48,6 +48,10 @@ namespace AllGamesGameReviews
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 1;
+
+                // Usernames are public (shown on reviews); emails stay private and must be unique
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@";
             });
 
 
@@ -101,8 +105,20 @@ namespace AllGamesGameReviews
                 app.UseHsts();
             }
 
+            // Show the site's own page for 404s and similar errors instead of a blank browser page
+            app.UseStatusCodePagesWithReExecute("/Home/Status/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // Always read numbers like 8.5 with a dot, even if the server's region uses commas
+            var usCulture = new System.Globalization.CultureInfo("en-US");
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(usCulture),
+                SupportedCultures = new[] { usCulture },
+                SupportedUICultures = new[] { usCulture }
+            });
 
             app.UseRouting();
 

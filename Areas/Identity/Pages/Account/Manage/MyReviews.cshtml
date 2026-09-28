@@ -1,0 +1,38 @@
+﻿@page
+@model MyReviewsModel
+@{
+    ViewData["Title"] = "My reviews";
+    ViewData["ActivePage"] = ManageNavPages.MyReviews;
+}
+
+<h3>@ViewData["Title"] <span class="th-hint">(@Model.Reviews.Count)</span></h3>
+
+@if (!Model.Reviews.Any())
+{
+    <p>You haven't written any reviews yet.</p>
+    <a class="btn btn-primary" asp-area="" asp-controller="Game" asp-action="Index">Find a game to review</a>
+}
+else
+{
+    <div class="th-my-reviews">
+        @foreach (var review in Model.Reviews)
+        {
+            <article class="th-my-review">
+                <a class="th-my-review-cover" asp-area="" asp-controller="Game" asp-action="Details" asp-route-id="@review.GameId" tabindex="-1" aria-hidden="true">
+                    <partial name="/Views/Shared/_GameCover.cshtml" model="review.Game" />
+                </a>
+                <div class="th-my-review-body">
+                    <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                        <a class="th-my-review-title" asp-area="" asp-controller="Game" asp-action="Details" asp-route-id="@review.GameId">@review.Game?.Name</a>
+                        <span class="th-rating">&#9733; @review.GameRating</span>
+                    </div>
+                    <p class="mb-2">@review.GameReview</p>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a class="btn btn-sm btn-primary" asp-area="" asp-controller="Review" asp-action="Edit" asp-route-id="@review.ReviewId">Edit</a>
+                        <a class="btn btn-sm btn-outline-light" asp-area="" asp-controller="Review" asp-action="Delete" asp-route-id="@review.ReviewId">Delete</a>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+}

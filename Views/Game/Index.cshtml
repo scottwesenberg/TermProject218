@@ -1,10 +1,14 @@
 ﻿@using AllGamesGameReviews.Models
-@model PaginatedList<AllGamesGameReviews.Models.Game>
+@model PaginatedList<AllGamesGameReviews.Models.GameCardViewModel>
 
 @{
     ViewData["Title"] = "Games";
     var search = ViewBag.SearchQuery as string;
-    var currentSort = ViewData["CurrentSort"] as string;
+    var currentSort = ViewData["CurrentSort"] as string ?? "";
+    var sorts = new (string Value, string Label)[] {
+        ("", "Name (A to Z)"), ("name_desc", "Name (Z to A)"), ("rating", "Highest rated"),
+        ("date_desc", "Newest"), ("date", "Oldest"), ("creator", "Creator")
+    };
 }
 
 <div class="th-bg-darkblue rounded-3 th-panel">
@@ -19,12 +23,23 @@
         }
     </div>
 
-    <form method="get" asp-controller="Game" asp-action="Index" class="th-search mb-3">
-        <label for="gameSearch" class="visually-hidden">Search games</label>
-        <input id="gameSearch" type="search" class="form-control" name="search" value="@search" placeholder="Search games, like Skyrim...">
-        <button type="submit" class="th-btn rounded-2 px-3" aria-label="Search">
-            <i class="fa fa-search"></i>
-        </button>
+    <form method="get" asp-controller="Game" asp-action="Index" class="th-toolbar mb-3">
+        <div class="th-search">
+            <label for="gameSearch" class="visually-hidden">Search games</label>
+            <input id="gameSearch" type="search" class="form-control" name="search" value="@search" placeholder="Search games, like Skyrim...">
+            <button type="submit" class="th-btn rounded-2 px-3" aria-label="Search">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <div class="th-sort">
+            <label for="sortOrder" class="th-light">Sort by</label>
+            <select id="sortOrder" name="sortOrder" class="form-select" onchange="this.form.submit()">
+                @foreach (var s in sorts)
+                {
+                    <option value="@s.Value" selected="@(s.Value == currentSort)">@s.Label</option>
+                }
+            </select>
+        </div>
     </form>
 
     @if (!string.IsNullOrEmpty(search))
@@ -39,44 +54,40 @@
     {
         <p class="th-light">No games found.</p>
     }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table th-light th-table th-stack align-middle mb-0">
-                <thead>
-                    <tr>
-                        <th>
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-search="@search" class="th-light">Game</a>
-                        </th>
-                        <th class="d-none d-md-table-cell">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["CreatorSortParam"]" asp-route-search="@search" class="th-light">Creator</a>
-                        </th>
-                        <th class="d-none d-sm-table-cell">
-                            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]" asp-route-search="@search" class="th-light">Year</a>
-                        </th>
-                        <th class="text-end"><span class="visually-hidden">Actions</span></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td class="fw-semibold">@Html.DisplayFor(modelItem => item.Name)</td>
-                            <td class="d-none d-md-table-cell">@Html.DisplayFor(modelItem => item.Creator)</td>
-                            <td class="d-none d-sm-table-cell">@Html.DisplayFor(modelItem => item.Year)</td>
-                            <td>
-                                <div class="th-actions">
-                                    <a class="th-btn-other rounded-2 text-decoration-none" asp-action="Details" asp-route-id="@item.Id">Game</a>
-                                    <a class="th-btn-other rounded-2 text-decoration-none" asp-controller="Review" asp-action="Index" asp-route-gameId="@item.Id" asp-route-pageNumber="1">Reviews</a>
-                                    <a class="th-btn rounded-2 text-decoration-none" asp-controller="Review" asp-action="Create" asp-route-gameId="@item.Id">Review Game</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
+
+    <div class="th-game-grid">
+        @foreach (var card in Model)
+        {
+            var game = card.Game;
+            <article class="th-game-card">
+                <a asp-action="Details" asp-route-id="@game.Id" class="th-game-cover-link" tabindex="-1" aria-hidden="true">
+                    <partial name="_GameCover" model="game" />
+                </a>
+                <div class="th-game-body">
+                    <h2 class="th-game-title">
+                        <a asp-action="Details" asp-route-id="@game.Id">@game.Name</a>
+                    </h2>
+                    <p class="th-game-meta">@game.Creator &middot; @game.Year</p>
+                    <div class="th-game-stats">
+                        @if (card.AverageRating.HasValue)
+                        {
+                            <span class="th-rating" title="Average player rating">&#9733; @card.AverageRating.Value.ToString("0.0")</span>
+                        }
+                        else
+                        {
+                            <span class="th-rating th-rating-empty">No ratings</span>
+                        }
+                        <span class="th-review-count">@card.ReviewCount @(card.ReviewCount == 1 ? "review" : "reviews")</span>
+                    </div>
+                    <div class="th-actions th-card-actions">
+                        <a class="th-btn-other rounded-2 text-decoration-none" asp-action="Details" asp-route-id="@game.Id">Game</a>
+                        <a class="th-btn-other rounded-2 text-decoration-none" asp-controller="Review" asp-action="Index" asp-route-gameId="@game.Id">Reviews</a>
+                        <a class="th-btn rounded-2 text-decoration-none" asp-controller="Review" asp-action="Create" asp-route-gameId="@game.Id">Review Game</a>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
 
     @if (Model.TotalPages > 1)
     {

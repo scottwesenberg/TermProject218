@@ -3,37 +3,33 @@
 @{
     ViewData["Title"] = "Add Category";
 }
-<div class="rounded-2 th-bg-darkblue p-2">
-    <h1>Create</h1>
 
-    <h4>Category</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-8">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Id" class="control-label"></label>
-                    <input asp-for="Id" class="form-control" />
-                    <span asp-validation-for="Id" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div>
-                    <input type="submit" value="Create" class="th-btn mt-2 rounded-3" />
-                    <input type="reset" value="Reset" class="th-btn-other mt-2 rounded-3" />
-                    <button type="button" class="th-btn-other text-center rounded-3 p-1 mt-2" onclick="window.location.href= '/Category/Index'">
-                        Back to List
-                    </button>
-                </div>
-            </form>
-        </div>
+<div class="th-bg-darkblue rounded-3 th-panel">
+    <div class="th-form th-form-narrow">
+        <p class="th-eyebrow mb-1">Admin</p>
+        <h1 class="th-light mb-4">Add a Category</h1>
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="e.g. Horror" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label">Short Code</label>
+                <input asp-for="Id" class="form-control" maxlength="10" placeholder="e.g. HOR" style="text-transform:uppercase" />
+                <small class="th-hint">A short unique code used behind the scenes. It can't be changed later.</small>
+                <span asp-validation-for="Id" class="text-danger d-block"></span>
+            </div>
+            <div class="th-form-actions">
+                <button type="submit" class="th-btn">Add Category</button>
+                <a class="th-btn-other text-decoration-none" asp-action="Index">Cancel</a>
+            </div>
+        </form>
     </div>
-
 </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

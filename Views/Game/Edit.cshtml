@@ -3,17 +3,17 @@
 @{
     ViewData["Title"] = "Edit Game";
 }
-<div class="th-bg-darkblue p-2 rounded-2">
-    <h2>Edit</h2>
 
-    <h4>Game</h4>
-    <hr />
-    <div class="row ">
-        <div class="col-md-6">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
+<div class="th-bg-darkblue rounded-3 th-panel">
+    <div class="th-form">
+        <p class="th-eyebrow mb-1">Admin</p>
+        <h1 class="th-light mb-4">Edit @Model.Name</h1>
 
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="th-form-grid">
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
@@ -24,35 +24,62 @@
                     <input asp-for="Creator" class="form-control" />
                     <span asp-validation-for="Creator" class="text-danger"></span>
                 </div>
-
-
                 <div class="form-group">
-                    <label asp-for="Year" class="control-label"></label>
-                    <input asp-for="Year" class="form-control" />
+                    <label asp-for="Year" class="control-label">Release Year</label>
+                    <input asp-for="Year" type="number" min="1962" max="2050" class="form-control" />
                     <span asp-validation-for="Year" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="IGNRating" class="control-label"></label>
-                    <input asp-for="IGNRating" class="form-control" />
+                    <input asp-for="IGNRating" type="number" min="1" max="10" step="0.1" class="form-control" />
                     <span asp-validation-for="IGNRating" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            @{
+                var allCategories = (List<AllGamesGameReviews.Models.Category>)ViewBag.AllCategories;
+                var selectedIds = (List<string>)ViewBag.SelectedCategoryIds;
+            }
+            <fieldset class="form-group th-chip-group">
+                <legend class="control-label">Categories <span class="th-hint">(pick all that apply)</span></legend>
+                <div class="th-chips">
+                    @foreach (var category in allCategories)
+                    {
+                        var id = "cat-" + category.Id;
+                        <input type="checkbox" class="btn-check" name="CategoryIds" id="@id" value="@category.Id" checked="@selectedIds.Contains(category.Id)" />
+                        <label class="th-chip" for="@id">@category.Name</label>
+                    }
                 </div>
-                <div class="form-group mt-2 ">
-                    <input type="submit" value="Save" class="th-btn mt-2 rounded-3" />
-                    <button type="button" class="th-btn-other text-center rounded-3 p-1 " onclick="window.location.href= '/Game/Index'">
-                        Back to List
-                    </button>
+            </fieldset>
+
+            <div class="form-group">
+                <label for="coverImage" class="control-label">Cover Image</label>
+                <div class="th-cover-edit">
+                    <div class="th-cover-edit-preview">
+                        <partial name="_GameCover" model="Model" />
+                    </div>
+                    <div>
+                        <input type="file" id="coverImage" name="coverImage" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                        <small class="th-hint">Leave empty to keep the current cover. JPG, PNG or WebP, up to 2 MB.</small>
+                        <span class="text-danger d-block">@Html.ValidationMessage("coverImage")</span>
+                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="th-form-actions">
+                <button type="submit" class="th-btn">Save Changes</button>
+                <a class="th-btn-other text-decoration-none" asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+            </div>
+        </form>
     </div>
-
-
 </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

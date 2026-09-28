@@ -1,0 +1,21 @@
+﻿@model float
+@*
+    Rating bubbles from 1 to 10 in half steps. They're radio buttons, so only one can be picked.
+*@
+@{
+    var inv = System.Globalization.CultureInfo.InvariantCulture;
+}
+<fieldset class="th-rating-picker">
+    <legend class="control-label">Game Rating</legend>
+    <div class="th-rating-options">
+        @for (var r = 1.0m; r <= 10.0m; r += 0.5m)
+        {
+            var value = r.ToString("0.#", inv);
+            var id = "rating-" + value.Replace(".", "-");
+            <input type="radio" class="btn-check" name="GameRating" id="@id" value="@value"
+                   checked="@((decimal)Model == r)" required />
+            <label class="th-rating-option" for="@id">@value</label>
+        }
+    </div>
+    <span class="text-danger field-validation-valid" data-valmsg-for="GameRating" data-valmsg-replace="true"></span>
+</fieldset>

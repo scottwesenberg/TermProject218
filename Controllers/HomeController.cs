@@ -31,6 +31,14 @@ namespace AllGamesGameReviews.Controllers
             return View();
         }
 
+        // Friendly page for 404s and other status codes (wired up in Program.cs)
+        [Route("Home/Status/{code:int}")]
+        public IActionResult Status(int code)
+        {
+            Response.StatusCode = code;
+            return code == 404 ? View("NotFound") : View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

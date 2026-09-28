@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Page not found";
+}
+<div class="th-page-wrap th-div-full">
+    <div class="th-page-card" style="grid-template-columns: 1fr;">
+        <div class="th-page-copy">
+            <p class="th-eyebrow">404</p>
+            <h1 class="th-page-title">This area isn't on the map</h1>
+            <p class="th-page-text">The page you're looking for doesn't exist or was moved. Try searching for a game instead.</p>
+            <form method="get" asp-controller="Game" asp-action="Index" class="th-search mb-2">
+                <input type="search" name="search" class="form-control" placeholder="Search games..." aria-label="Search games" />
+                <button type="submit" class="th-btn rounded-2 px-3" aria-label="Search"><i class="fa fa-search"></i></button>
+            </form>
+            <div class="th-form-actions">
+                <a class="th-btn text-decoration-none" asp-controller="Game" asp-action="Index">Browse Games</a>
+                <a class="th-btn-other text-decoration-none" asp-controller="Home" asp-action="Index">Home</a>
+            </div>
+        </div>
+    </div>
+</div>

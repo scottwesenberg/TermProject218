@@ -19,5 +19,13 @@ namespace AllGamesGameReviews.Models
         [StringLength(maximumLength: 3000)]
         [Display(Name = "Game Review")]
         public string GameReview { get; set; }
+
+        // The account that wrote this review (Identity user id). Empty for the seeded demo reviews.
+        [StringLength(450)]
+        public string? UserId { get; set; }
+
+        // Filled in by the controller for display; not stored in the database
+        [NotMapped]
+        public string AuthorName { get; set; }
     }
 }

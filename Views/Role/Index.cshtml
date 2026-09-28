@@ -2,25 +2,23 @@
 @{
     ViewData["Title"] = "Roles";
 }
-<div class="th-bg-darkblue th-div-full p-2 rounded-2">
-<h1>List of Roles</h1>
-<a asp-action="Create">Create</a>
-    <table class="table table-bordered th-light">
-        <thead>
-            <tr>
-                <td>Id</td>
-                <td>Name</td>
-            </tr>
-        </thead>
-        <tbody>
+
+<div class="th-bg-darkblue rounded-3 th-panel">
+    <div class="th-form">
+        <div class="th-panel-head">
+            <div>
+                <p class="th-eyebrow mb-1">Admin</p>
+                <h1 class="th-light mb-0">Roles</h1>
+            </div>
+            <a class="th-btn rounded-3 px-3 py-2 text-decoration-none" asp-action="Create">Add Role</a>
+        </div>
+        <ul class="th-admin-list">
             @foreach (var role in Model)
             {
-                <tr>
-                    <td>@role.Id</td>
-                    <td>@role.Name</td>
-                </tr>
-
+                <li>
+                    <span class="th-admin-name">@role.Name</span>
+                </li>
             }
-        </tbody>
-    </table>
+        </ul>
+    </div>
 </div>

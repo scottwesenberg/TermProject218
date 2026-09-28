@@ -127,6 +127,10 @@ namespace AllGamesGameReviews.Migrations
                     b.Property<float>("IGNRating")
                         .HasColumnType("real");
 
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -145,6 +149,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Rockstar Studios",
                             Description = "Red Dead Redemption 2 is an epic tale of life in America’s unforgiving heartland. The game's vast and atmospheric world also provides the foundation for a brand new online multiplayer experience.",
                             IGNRating = 10f,
+                            ImageUrl = "/images/games/red-dead-redemption-2.jpg",
                             Name = "Red Dead Redemption 2",
                             Year = 2018
                         },
@@ -154,6 +159,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Bethesda Game Studios",
                             Description = "Starfield is a next-generation roleplaying game set in space, created by the acclaimed team behind The Elder Scrolls and Fallout.",
                             IGNRating = 7f,
+                            ImageUrl = "/images/games/starfield.jpg",
                             Name = "Starfield",
                             Year = 2023
                         },
@@ -163,6 +169,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "FromSoftware",
                             Description = "Elden Ring is an expansive fantasy Action-RPG game developed by FromSoftware, Inc. under the direction of Hidetaka Miyazaki and created in collaboration with famed author George R.R. Martin.",
                             IGNRating = 10f,
+                            ImageUrl = "/images/games/elden-ring.jpg",
                             Name = "Elden Ring",
                             Year = 2022
                         },
@@ -190,6 +197,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Santa Monica Studio",
                             Description = "Kratos leaves Greece behind for the Norse wilds, journeying with his son Atreus to scatter his late wife's ashes. A heavy-hitting action game with a surprisingly emotional father and son story.",
                             IGNRating = 10f,
+                            ImageUrl = "/images/games/god-of-war.jpg",
                             Name = "God of War",
                             Year = 2018
                         },
@@ -199,6 +207,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "CD Projekt Red",
                             Description = "Monster hunter Geralt of Rivia searches a war-torn continent for his adopted daughter. Known for its memorable side quests, tough choices and a massive, lived-in world.",
                             IGNRating = 9.3f,
+                            ImageUrl = "/images/games/the-witcher-3-wild-hunt.jpg",
                             Name = "The Witcher 3: Wild Hunt",
                             Year = 2015
                         },
@@ -208,6 +217,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Bethesda Game Studios",
                             Description = "As the Dragonborn, explore the frozen province of Skyrim, learn the language of dragons and forge your own path through guilds, civil war and countless dungeons.",
                             IGNRating = 9.5f,
+                            ImageUrl = "/images/games/the-elder-scrolls-v-skyrim.jpg",
                             Name = "The Elder Scrolls V: Skyrim",
                             Year = 2011
                         },
@@ -217,6 +227,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Rockstar North",
                             Description = "Three very different criminals pull off daring heists across the sprawling city of Los Santos. Switch between characters on the fly in one of the most detailed open worlds ever made.",
                             IGNRating = 10f,
+                            ImageUrl = "/images/games/grand-theft-auto-v.jpg",
                             Name = "Grand Theft Auto V",
                             Year = 2013
                         },
@@ -226,6 +237,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Naughty Dog",
                             Description = "Five years after the events of the first game, Ellie sets out on a relentless journey for revenge through a ruined Seattle. Tense stealth, brutal combat and a story that sticks with you.",
                             IGNRating = 10f,
+                            ImageUrl = "/images/games/the-last-of-us-part-ii.jpg",
                             Name = "The Last of Us Part II",
                             Year = 2020
                         },
@@ -235,6 +247,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Larian Studios",
                             Description = "A deep, choice-driven RPG built on Dungeons & Dragons rules. Recruit a party, roll the dice in turn-based combat and shape a story that reacts to almost everything you do.",
                             IGNRating = 10f,
+                            ImageUrl = "/images/games/baldur-s-gate-3.jpg",
                             Name = "Baldur's Gate 3",
                             Year = 2023
                         },
@@ -244,6 +257,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "CD Projekt Red",
                             Description = "Play as V, a mercenary chasing an implant that grants immortality in the neon-soaked megacity of Night City. First-person action with RPG depth and lots of ways to approach every job.",
                             IGNRating = 9f,
+                            ImageUrl = "/images/games/cyberpunk-2077.jpg",
                             Name = "Cyberpunk 2077",
                             Year = 2020
                         },
@@ -253,6 +267,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "343 Industries",
                             Description = "Master Chief returns in the most open Halo campaign yet, along with a free-to-play multiplayer mode built around the series' classic arena shooting.",
                             IGNRating = 9f,
+                            ImageUrl = "/images/games/halo-infinite.jpg",
                             Name = "Halo Infinite",
                             Year = 2021
                         },
@@ -262,6 +277,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Supergiant Games",
                             Description = "Zagreus, son of Hades, battles his way out of the Underworld with help from the gods of Olympus. A fast roguelike where every failed run pushes the story forward.",
                             IGNRating = 9f,
+                            ImageUrl = "/images/games/hades.jpg",
                             Name = "Hades",
                             Year = 2020
                         },
@@ -271,6 +287,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Sucker Punch Productions",
                             Description = "Samurai Jin Sakai fights to free Tsushima Island from the Mongol invasion, balancing honor against the stealthy tactics of the Ghost in a beautiful open world.",
                             IGNRating = 9f,
+                            ImageUrl = "/images/games/ghost-of-tsushima.jpg",
                             Name = "Ghost of Tsushima",
                             Year = 2020
                         },
@@ -280,6 +297,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Insomniac Games",
                             Description = "An experienced Peter Parker swings through a detailed Manhattan, juggling crime fighting, a new cast of villains and his everyday life.",
                             IGNRating = 8.7f,
+                            ImageUrl = "/images/games/marvel-s-spider-man.jpg",
                             Name = "Marvel's Spider-Man",
                             Year = 2018
                         },
@@ -289,6 +307,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "FromSoftware",
                             Description = "A shinobi known as Wolf seeks revenge and his kidnapped lord in a reimagined Sengoku-era Japan. Precise sword fighting built around deflecting attacks and breaking enemy posture.",
                             IGNRating = 9.5f,
+                            ImageUrl = "/images/games/sekiro-shadows-die-twice.jpg",
                             Name = "Sekiro: Shadows Die Twice",
                             Year = 2019
                         },
@@ -307,6 +326,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Team Cherry",
                             Description = "Explore the vast, ruined bug kingdom of Hallownest in this hand-drawn action adventure full of secrets, tough bosses and tight platforming.",
                             IGNRating = 9.4f,
+                            ImageUrl = "/images/games/hollow-knight.jpg",
                             Name = "Hollow Knight",
                             Year = 2017
                         },
@@ -316,6 +336,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "id Software",
                             Description = "The Doom Slayer rips and tears through the demonic hordes of Mars and Hell. A fast, aggressive shooter that rewards constant movement.",
                             IGNRating = 9f,
+                            ImageUrl = "/images/games/doom.jpg",
                             Name = "Doom",
                             Year = 2016
                         },
@@ -325,6 +346,7 @@ namespace AllGamesGameReviews.Migrations
                             Creator = "Valve",
                             Description = "Solve mind-bending puzzles with the portal gun as the sarcastic AI GLaDOS and the bumbling robot Wheatley guide you through Aperture Science. Includes a two-player co-op campaign.",
                             IGNRating = 9.5f,
+                            ImageUrl = "/images/games/portal-2.jpg",
                             Name = "Portal 2",
                             Year = 2011
                         },
@@ -336,6 +358,199 @@ namespace AllGamesGameReviews.Migrations
                             IGNRating = 10f,
                             Name = "Super Mario Odyssey",
                             Year = 2017
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Creator = "BioWare",
+                            Description = "Commander Shepard assembles a squad of specialists for a suicide mission against the Collectors. Choices from the first game carry over, and every squadmate's loyalty matters.",
+                            IGNRating = 9.6f,
+                            Name = "Mass Effect 2",
+                            Year = 2010
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Creator = "2K Boston",
+                            Description = "Explore Rapture, a crumbling underwater city built on extreme ideals. Combine plasmids and weapons in a shooter famous for its atmosphere and its twist.",
+                            IGNRating = 9.7f,
+                            ImageUrl = "/images/games/bioshock.jpg",
+                            Name = "BioShock",
+                            Year = 2007
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Creator = "Valve",
+                            Description = "Gordon Freeman returns to fight the alien Combine in City 17. A groundbreaking shooter known for its physics puzzles and the iconic gravity gun.",
+                            IGNRating = 9.7f,
+                            ImageUrl = "/images/games/half-life-2.jpg",
+                            Name = "Half-Life 2",
+                            Year = 2004
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Creator = "Nintendo EAD Tokyo",
+                            Description = "Mario blasts off into space, running around tiny planets with their own gravity to rescue Princess Peach from Bowser.",
+                            IGNRating = 9.7f,
+                            Name = "Super Mario Galaxy",
+                            Year = 2007
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Creator = "Capcom",
+                            Description = "Agent Leon S. Kennedy heads to rural Spain to rescue the president's daughter from a mysterious cult. The over-the-shoulder camera changed action games forever.",
+                            IGNRating = 9.8f,
+                            ImageUrl = "/images/games/resident-evil-4.jpg",
+                            Name = "Resident Evil 4",
+                            Year = 2005
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Creator = "Kojima Productions",
+                            Description = "Venom Snake builds a private army and takes on missions across Afghanistan and Africa, with total freedom in how you sneak, fight or improvise.",
+                            IGNRating = 10f,
+                            ImageUrl = "/images/games/metal-gear-solid-v-the-phantom-pain.jpg",
+                            Name = "Metal Gear Solid V: The Phantom Pain",
+                            Year = 2015
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Creator = "Naughty Dog",
+                            Description = "Treasure hunter Nathan Drake races to find the lost city of Shambhala in a cinematic adventure full of set pieces, climbing and shootouts.",
+                            IGNRating = 9.5f,
+                            Name = "Uncharted 2: Among Thieves",
+                            Year = 2009
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Creator = "Naughty Dog",
+                            Description = "Smuggler Joel escorts 14-year-old Ellie across a ruined America twenty years after a fungal outbreak. A survival story driven by one of gaming's best relationships.",
+                            IGNRating = 10f,
+                            ImageUrl = "/images/games/the-last-of-us.jpg",
+                            Name = "The Last of Us",
+                            Year = 2013
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Creator = "FromSoftware",
+                            Description = "Hunt nightmarish beasts through the gothic city of Yharnam. Faster and more aggressive than Dark Souls, rewarding players who fight back.",
+                            IGNRating = 9.1f,
+                            Name = "Bloodborne",
+                            Year = 2015
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Creator = "Bandai Namco Studios",
+                            Description = "Every fighter in Smash history returns in one massive crossover brawler. Great for parties and deep enough for competitive play.",
+                            IGNRating = 9.8f,
+                            Name = "Super Smash Bros. Ultimate",
+                            Year = 2018
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Creator = "Nintendo EPD",
+                            Description = "The definitive Mario Kart with dozens of tracks, anti-gravity racing and smart steering options so the whole family can play.",
+                            IGNRating = 9.2f,
+                            Name = "Mario Kart 8 Deluxe",
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Creator = "Blizzard Entertainment",
+                            Description = "Team-based hero shooter where every character has unique abilities. Coordinate with your team to push the payload or hold the point.",
+                            IGNRating = 9.4f,
+                            Name = "Overwatch",
+                            Year = 2016
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Creator = "Bethesda Game Studios",
+                            Description = "Emerge from Vault 111 into the post-apocalyptic Commonwealth to search for your missing son. Explore, craft and build settlements across the wasteland.",
+                            IGNRating = 9.5f,
+                            ImageUrl = "/images/games/fallout-4.jpg",
+                            Name = "Fallout 4",
+                            Year = 2015
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Creator = "Guerrilla Games",
+                            Description = "Aloy hunts giant robotic creatures in a lush world where nature has reclaimed the remains of a lost civilization, and uncovers the truth behind it.",
+                            IGNRating = 9.3f,
+                            ImageUrl = "/images/games/horizon-zero-dawn.jpg",
+                            Name = "Horizon Zero Dawn",
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Creator = "Kojima Productions",
+                            Description = "Sam Porter Bridges reconnects a fractured America by delivering cargo across dangerous terrain. A strange, divisive game about connection.",
+                            IGNRating = 6.8f,
+                            ImageUrl = "/images/games/death-stranding.jpg",
+                            Name = "Death Stranding",
+                            Year = 2019
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Creator = "Rocksteady Studios",
+                            Description = "Batman is trapped inside a walled-off district of Gotham run by his worst enemies. Fluid combat, gadgets and gliding across rooftops.",
+                            IGNRating = 9.5f,
+                            ImageUrl = "/images/games/batman-arkham-city.jpg",
+                            Name = "Batman: Arkham City",
+                            Year = 2011
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Creator = "Hazelight Studios",
+                            Description = "A couple on the verge of divorce is shrunk into dolls and must work together to get home. A creative co-op adventure that changes its gameplay every level.",
+                            IGNRating = 9f,
+                            ImageUrl = "/images/games/it-takes-two.jpg",
+                            Name = "It Takes Two",
+                            Year = 2021
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Creator = "Respawn Entertainment",
+                            Description = "Free-to-play battle royale with unique Legends, fast movement and a smart ping system that makes teamwork easy even without voice chat.",
+                            IGNRating = 9f,
+                            ImageUrl = "/images/games/apex-legends.jpg",
+                            Name = "Apex Legends",
+                            Year = 2019
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Creator = "Blizzard Entertainment",
+                            Description = "Lilith returns to Sanctuary in a dark action RPG. Build your character, clear dungeons and chase better loot solo or with friends.",
+                            IGNRating = 9f,
+                            ImageUrl = "/images/games/diablo-iv.jpg",
+                            Name = "Diablo IV",
+                            Year = 2023
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Creator = "Square Enix",
+                            Description = "Cloud Strife and the rebel group Avalanche fight the Shinra corporation in a reimagined Midgar, with real-time action combat and a new take on the classic story.",
+                            IGNRating = 9f,
+                            ImageUrl = "/images/games/final-fantasy-vii-remake.jpg",
+                            Name = "Final Fantasy VII Remake",
+                            Year = 2020
                         });
                 });
 
@@ -727,6 +942,348 @@ namespace AllGamesGameReviews.Migrations
                             GameCategoryId = 61,
                             CategoryId = "CAS",
                             GameId = 22
+                        },
+                        new
+                        {
+                            GameCategoryId = 62,
+                            CategoryId = "RPG",
+                            GameId = 23
+                        },
+                        new
+                        {
+                            GameCategoryId = 63,
+                            CategoryId = "F",
+                            GameId = 23
+                        },
+                        new
+                        {
+                            GameCategoryId = 64,
+                            CategoryId = "S",
+                            GameId = 23
+                        },
+                        new
+                        {
+                            GameCategoryId = 65,
+                            CategoryId = "S",
+                            GameId = 24
+                        },
+                        new
+                        {
+                            GameCategoryId = 66,
+                            CategoryId = "F",
+                            GameId = 24
+                        },
+                        new
+                        {
+                            GameCategoryId = 67,
+                            CategoryId = "A",
+                            GameId = 24
+                        },
+                        new
+                        {
+                            GameCategoryId = 68,
+                            CategoryId = "S",
+                            GameId = 25
+                        },
+                        new
+                        {
+                            GameCategoryId = 69,
+                            CategoryId = "F",
+                            GameId = 25
+                        },
+                        new
+                        {
+                            GameCategoryId = 70,
+                            CategoryId = "A",
+                            GameId = 25
+                        },
+                        new
+                        {
+                            GameCategoryId = 71,
+                            CategoryId = "D",
+                            GameId = 26
+                        },
+                        new
+                        {
+                            GameCategoryId = 72,
+                            CategoryId = "CAS",
+                            GameId = 26
+                        },
+                        new
+                        {
+                            GameCategoryId = 73,
+                            CategoryId = "A",
+                            GameId = 27
+                        },
+                        new
+                        {
+                            GameCategoryId = 74,
+                            CategoryId = "S",
+                            GameId = 27
+                        },
+                        new
+                        {
+                            GameCategoryId = 75,
+                            CategoryId = "A",
+                            GameId = 28
+                        },
+                        new
+                        {
+                            GameCategoryId = 76,
+                            CategoryId = "O",
+                            GameId = 28
+                        },
+                        new
+                        {
+                            GameCategoryId = 77,
+                            CategoryId = "STR",
+                            GameId = 28
+                        },
+                        new
+                        {
+                            GameCategoryId = 78,
+                            CategoryId = "A",
+                            GameId = 29
+                        },
+                        new
+                        {
+                            GameCategoryId = 79,
+                            CategoryId = "D",
+                            GameId = 29
+                        },
+                        new
+                        {
+                            GameCategoryId = 80,
+                            CategoryId = "S",
+                            GameId = 29
+                        },
+                        new
+                        {
+                            GameCategoryId = 81,
+                            CategoryId = "A",
+                            GameId = 30
+                        },
+                        new
+                        {
+                            GameCategoryId = 82,
+                            CategoryId = "D",
+                            GameId = 30
+                        },
+                        new
+                        {
+                            GameCategoryId = 83,
+                            CategoryId = "S",
+                            GameId = 30
+                        },
+                        new
+                        {
+                            GameCategoryId = 84,
+                            CategoryId = "A",
+                            GameId = 31
+                        },
+                        new
+                        {
+                            GameCategoryId = 85,
+                            CategoryId = "RPG",
+                            GameId = 31
+                        },
+                        new
+                        {
+                            GameCategoryId = 86,
+                            CategoryId = "FAN",
+                            GameId = 31
+                        },
+                        new
+                        {
+                            GameCategoryId = 87,
+                            CategoryId = "COMP",
+                            GameId = 32
+                        },
+                        new
+                        {
+                            GameCategoryId = 88,
+                            CategoryId = "CAS",
+                            GameId = 32
+                        },
+                        new
+                        {
+                            GameCategoryId = 89,
+                            CategoryId = "A",
+                            GameId = 32
+                        },
+                        new
+                        {
+                            GameCategoryId = 90,
+                            CategoryId = "SPORT",
+                            GameId = 33
+                        },
+                        new
+                        {
+                            GameCategoryId = 91,
+                            CategoryId = "CAS",
+                            GameId = 33
+                        },
+                        new
+                        {
+                            GameCategoryId = 92,
+                            CategoryId = "COMP",
+                            GameId = 33
+                        },
+                        new
+                        {
+                            GameCategoryId = 93,
+                            CategoryId = "S",
+                            GameId = 34
+                        },
+                        new
+                        {
+                            GameCategoryId = 94,
+                            CategoryId = "COMP",
+                            GameId = 34
+                        },
+                        new
+                        {
+                            GameCategoryId = 95,
+                            CategoryId = "F",
+                            GameId = 34
+                        },
+                        new
+                        {
+                            GameCategoryId = 96,
+                            CategoryId = "RPG",
+                            GameId = 35
+                        },
+                        new
+                        {
+                            GameCategoryId = 97,
+                            CategoryId = "O",
+                            GameId = 35
+                        },
+                        new
+                        {
+                            GameCategoryId = 98,
+                            CategoryId = "F",
+                            GameId = 35
+                        },
+                        new
+                        {
+                            GameCategoryId = 99,
+                            CategoryId = "A",
+                            GameId = 36
+                        },
+                        new
+                        {
+                            GameCategoryId = 100,
+                            CategoryId = "O",
+                            GameId = 36
+                        },
+                        new
+                        {
+                            GameCategoryId = 101,
+                            CategoryId = "F",
+                            GameId = 36
+                        },
+                        new
+                        {
+                            GameCategoryId = 102,
+                            CategoryId = "D",
+                            GameId = 37
+                        },
+                        new
+                        {
+                            GameCategoryId = 103,
+                            CategoryId = "O",
+                            GameId = 37
+                        },
+                        new
+                        {
+                            GameCategoryId = 104,
+                            CategoryId = "F",
+                            GameId = 37
+                        },
+                        new
+                        {
+                            GameCategoryId = 105,
+                            CategoryId = "A",
+                            GameId = 38
+                        },
+                        new
+                        {
+                            GameCategoryId = 106,
+                            CategoryId = "D",
+                            GameId = 38
+                        },
+                        new
+                        {
+                            GameCategoryId = 107,
+                            CategoryId = "O",
+                            GameId = 38
+                        },
+                        new
+                        {
+                            GameCategoryId = 108,
+                            CategoryId = "D",
+                            GameId = 39
+                        },
+                        new
+                        {
+                            GameCategoryId = 109,
+                            CategoryId = "C",
+                            GameId = 39
+                        },
+                        new
+                        {
+                            GameCategoryId = 110,
+                            CategoryId = "CAS",
+                            GameId = 39
+                        },
+                        new
+                        {
+                            GameCategoryId = 111,
+                            CategoryId = "S",
+                            GameId = 40
+                        },
+                        new
+                        {
+                            GameCategoryId = 112,
+                            CategoryId = "COMP",
+                            GameId = 40
+                        },
+                        new
+                        {
+                            GameCategoryId = 113,
+                            CategoryId = "RPG",
+                            GameId = 41
+                        },
+                        new
+                        {
+                            GameCategoryId = 114,
+                            CategoryId = "A",
+                            GameId = 41
+                        },
+                        new
+                        {
+                            GameCategoryId = 115,
+                            CategoryId = "FAN",
+                            GameId = 41
+                        },
+                        new
+                        {
+                            GameCategoryId = 116,
+                            CategoryId = "RPG",
+                            GameId = 42
+                        },
+                        new
+                        {
+                            GameCategoryId = 117,
+                            CategoryId = "A",
+                            GameId = 42
+                        },
+                        new
+                        {
+                            GameCategoryId = 118,
+                            CategoryId = "F",
+                            GameId = 42
                         });
                 });
 
@@ -748,6 +1305,10 @@ namespace AllGamesGameReviews.Migrations
                         .IsRequired()
                         .HasMaxLength(3000)
                         .HasColumnType("nvarchar(3000)");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ReviewId");
 
@@ -1175,6 +1736,370 @@ namespace AllGamesGameReviews.Migrations
                             GameId = 22,
                             GameRating = 9f,
                             GameReview = "Lots of moons to find and every kingdom feels different. Perfect for all ages."
+                        },
+                        new
+                        {
+                            ReviewId = 61,
+                            GameId = 23,
+                            GameRating = 10f,
+                            GameReview = "The suicide mission is the best final act in any RPG. I was nervous about every squadmate."
+                        },
+                        new
+                        {
+                            ReviewId = 62,
+                            GameId = 23,
+                            GameRating = 9.5f,
+                            GameReview = "Great characters and loyalty missions. Planet scanning was a chore though."
+                        },
+                        new
+                        {
+                            ReviewId = 63,
+                            GameId = 23,
+                            GameRating = 9f,
+                            GameReview = "Still holds up in the Legendary Edition."
+                        },
+                        new
+                        {
+                            ReviewId = 64,
+                            GameId = 24,
+                            GameRating = 10f,
+                            GameReview = "Would you kindly play this game? The atmosphere of Rapture is unforgettable."
+                        },
+                        new
+                        {
+                            ReviewId = 65,
+                            GameId = 24,
+                            GameRating = 9f,
+                            GameReview = "Amazing story and setting. Combat is a bit clunky by today's standards."
+                        },
+                        new
+                        {
+                            ReviewId = 66,
+                            GameId = 25,
+                            GameRating = 9.5f,
+                            GameReview = "The gravity gun is still one of the most fun weapons in any game."
+                        },
+                        new
+                        {
+                            ReviewId = 67,
+                            GameId = 25,
+                            GameRating = 9f,
+                            GameReview = "Ravenholm scared me as a kid and still does."
+                        },
+                        new
+                        {
+                            ReviewId = 68,
+                            GameId = 25,
+                            GameRating = 8.5f,
+                            GameReview = "Some sections drag, but it was way ahead of its time."
+                        },
+                        new
+                        {
+                            ReviewId = 69,
+                            GameId = 26,
+                            GameRating = 10f,
+                            GameReview = "Pure creativity. Every galaxy feels like a new idea."
+                        },
+                        new
+                        {
+                            ReviewId = 70,
+                            GameId = 26,
+                            GameRating = 9.5f,
+                            GameReview = "The music is incredible and the gravity mechanics never get old."
+                        },
+                        new
+                        {
+                            ReviewId = 71,
+                            GameId = 27,
+                            GameRating = 10f,
+                            GameReview = "Perfect pacing from start to finish. The village fight at the start is legendary."
+                        },
+                        new
+                        {
+                            ReviewId = 72,
+                            GameId = 27,
+                            GameRating = 9f,
+                            GameReview = "Leon's one-liners are cheesy in the best way. Still fun decades later."
+                        },
+                        new
+                        {
+                            ReviewId = 73,
+                            GameId = 27,
+                            GameRating = 8.5f,
+                            GameReview = "Escort sections with Ashley can be annoying, but everything else is great."
+                        },
+                        new
+                        {
+                            ReviewId = 74,
+                            GameId = 28,
+                            GameRating = 10f,
+                            GameReview = "The freedom is unmatched. Every outpost can be tackled in a dozen ways."
+                        },
+                        new
+                        {
+                            ReviewId = 75,
+                            GameId = 28,
+                            GameRating = 8f,
+                            GameReview = "Incredible gameplay, but the story feels unfinished near the end."
+                        },
+                        new
+                        {
+                            ReviewId = 76,
+                            GameId = 28,
+                            GameRating = 9f,
+                            GameReview = "Fulton-ing sheep back to Mother Base never gets old."
+                        },
+                        new
+                        {
+                            ReviewId = 77,
+                            GameId = 29,
+                            GameRating = 9.5f,
+                            GameReview = "The train level is one of the best set pieces ever made."
+                        },
+                        new
+                        {
+                            ReviewId = 78,
+                            GameId = 29,
+                            GameRating = 9f,
+                            GameReview = "Great banter between the characters and gorgeous locations."
+                        },
+                        new
+                        {
+                            ReviewId = 79,
+                            GameId = 30,
+                            GameRating = 10f,
+                            GameReview = "The ending hit me harder than any movie. Masterpiece."
+                        },
+                        new
+                        {
+                            ReviewId = 80,
+                            GameId = 30,
+                            GameRating = 9.5f,
+                            GameReview = "Tense, beautiful and heartbreaking. Every encounter feels desperate."
+                        },
+                        new
+                        {
+                            ReviewId = 81,
+                            GameId = 30,
+                            GameRating = 9f,
+                            GameReview = "Play the remastered version if you can. Still amazing."
+                        },
+                        new
+                        {
+                            ReviewId = 82,
+                            GameId = 31,
+                            GameRating = 10f,
+                            GameReview = "The best world design FromSoftware has ever done. Yharnam is unforgettable."
+                        },
+                        new
+                        {
+                            ReviewId = 83,
+                            GameId = 31,
+                            GameRating = 9f,
+                            GameReview = "Fast and aggressive combat that rewards you for being bold."
+                        },
+                        new
+                        {
+                            ReviewId = 84,
+                            GameId = 31,
+                            GameRating = 8f,
+                            GameReview = "Load times on PS4 hurt, but the game itself is incredible."
+                        },
+                        new
+                        {
+                            ReviewId = 85,
+                            GameId = 32,
+                            GameRating = 10f,
+                            GameReview = "Everyone is here! Game nights with friends are chaos in the best way."
+                        },
+                        new
+                        {
+                            ReviewId = 86,
+                            GameId = 32,
+                            GameRating = 9f,
+                            GameReview = "Huge roster and tons of stages. World of Light mode was a nice bonus."
+                        },
+                        new
+                        {
+                            ReviewId = 87,
+                            GameId = 33,
+                            GameRating = 9f,
+                            GameReview = "Our family's favorite game. Smart steering lets my kids race with us."
+                        },
+                        new
+                        {
+                            ReviewId = 88,
+                            GameId = 33,
+                            GameRating = 9.5f,
+                            GameReview = "Tons of tracks with the booster pass. Blue shells still hurt."
+                        },
+                        new
+                        {
+                            ReviewId = 89,
+                            GameId = 33,
+                            GameRating = 8.5f,
+                            GameReview = "Great online races, though some tracks feel too similar."
+                        },
+                        new
+                        {
+                            ReviewId = 90,
+                            GameId = 34,
+                            GameRating = 9f,
+                            GameReview = "Every hero feels different and the art style is fantastic."
+                        },
+                        new
+                        {
+                            ReviewId = 91,
+                            GameId = 34,
+                            GameRating = 8f,
+                            GameReview = "So fun with a good team. Frustrating with a bad one."
+                        },
+                        new
+                        {
+                            ReviewId = 92,
+                            GameId = 34,
+                            GameRating = 9.5f,
+                            GameReview = "Played this nonstop for two years. Great memories."
+                        },
+                        new
+                        {
+                            ReviewId = 93,
+                            GameId = 35,
+                            GameRating = 9f,
+                            GameReview = "Building settlements took up way more of my time than I expected."
+                        },
+                        new
+                        {
+                            ReviewId = 94,
+                            GameId = 35,
+                            GameRating = 8f,
+                            GameReview = "Great exploration, but the dialogue system is a step back from earlier Fallouts."
+                        },
+                        new
+                        {
+                            ReviewId = 95,
+                            GameId = 36,
+                            GameRating = 9.5f,
+                            GameReview = "Fighting robot dinosaurs with a bow is exactly as cool as it sounds."
+                        },
+                        new
+                        {
+                            ReviewId = 96,
+                            GameId = 36,
+                            GameRating = 9f,
+                            GameReview = "Beautiful world and a surprisingly great sci-fi mystery."
+                        },
+                        new
+                        {
+                            ReviewId = 97,
+                            GameId = 37,
+                            GameRating = 8f,
+                            GameReview = "Weird, slow and somehow really relaxing. Nothing else is like it."
+                        },
+                        new
+                        {
+                            ReviewId = 98,
+                            GameId = 37,
+                            GameRating = 5.5f,
+                            GameReview = "Beautiful, but I couldn't get into walking packages across the map for hours."
+                        },
+                        new
+                        {
+                            ReviewId = 99,
+                            GameId = 37,
+                            GameRating = 9f,
+                            GameReview = "Finding a ladder someone else left for you is such a cool feeling."
+                        },
+                        new
+                        {
+                            ReviewId = 100,
+                            GameId = 38,
+                            GameRating = 9.5f,
+                            GameReview = "Gliding over Arkham City and taking down thugs never gets old."
+                        },
+                        new
+                        {
+                            ReviewId = 101,
+                            GameId = 38,
+                            GameRating = 9f,
+                            GameReview = "Great villains and a ton of Riddler challenges to find."
+                        },
+                        new
+                        {
+                            ReviewId = 102,
+                            GameId = 39,
+                            GameRating = 10f,
+                            GameReview = "Best co-op game I've ever played. Every level has a new idea."
+                        },
+                        new
+                        {
+                            ReviewId = 103,
+                            GameId = 39,
+                            GameRating = 9f,
+                            GameReview = "Played it with my partner and we loved it. The squirrel fight was hilarious."
+                        },
+                        new
+                        {
+                            ReviewId = 104,
+                            GameId = 39,
+                            GameRating = 8.5f,
+                            GameReview = "The story is a little cheesy, but the gameplay is brilliant."
+                        },
+                        new
+                        {
+                            ReviewId = 105,
+                            GameId = 40,
+                            GameRating = 9f,
+                            GameReview = "The movement and gunplay feel amazing, and the ping system is genius."
+                        },
+                        new
+                        {
+                            ReviewId = 106,
+                            GameId = 40,
+                            GameRating = 7.5f,
+                            GameReview = "Great game, but it can get sweaty fast in ranked."
+                        },
+                        new
+                        {
+                            ReviewId = 107,
+                            GameId = 41,
+                            GameRating = 9f,
+                            GameReview = "Dark tone, great campaign and satisfying loot."
+                        },
+                        new
+                        {
+                            ReviewId = 108,
+                            GameId = 41,
+                            GameRating = 7.5f,
+                            GameReview = "The campaign is great, but the endgame needed more when it launched."
+                        },
+                        new
+                        {
+                            ReviewId = 109,
+                            GameId = 41,
+                            GameRating = 8.5f,
+                            GameReview = "Seasons have improved it a lot. Fun with friends."
+                        },
+                        new
+                        {
+                            ReviewId = 110,
+                            GameId = 42,
+                            GameRating = 9f,
+                            GameReview = "Combat blends action and strategy perfectly. Midgar looks amazing."
+                        },
+                        new
+                        {
+                            ReviewId = 111,
+                            GameId = 42,
+                            GameRating = 8.5f,
+                            GameReview = "Some filler sections, but the characters shine."
+                        },
+                        new
+                        {
+                            ReviewId = 112,
+                            GameId = 42,
+                            GameRating = 9.5f,
+                            GameReview = "Hearing the classic music remade brought back so many memories."
                         });
                 });
 

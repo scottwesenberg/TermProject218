@@ -7,16 +7,24 @@
 
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
+@if (Model.Username != null && Model.Username.Contains('@'))
+{
+    <div class="alert alert-warning" role="alert">
+        Pick a username! It's shown on your reviews instead of your email, and you can sign in with it too.
+    </div>
+}
 <div class="row">
     <div class="col-md-6">
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
-                <input asp-for="Username" class="form-control" disabled />
-                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Input.Username" class="form-control" autocomplete="username" placeholder="username" />
+                <label asp-for="Input.Username" class="form-label"></label>
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div>
+            <p class="th-auth-hint">Shown on your reviews. You can sign in with your username or your email.</p>
             <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="phone" />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
